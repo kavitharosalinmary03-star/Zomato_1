@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>My Gastronomy Journey</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;family=Noto+Sans:ital,wght@0,100..900;1,100..900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#db143c",
+                        "primary-dark": "#b01030",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211114",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2d1b1e",
+                        "text-main": "#1b0e10",
+                        "text-secondary": "#994d5c",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom styles for specific effects */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .dark .glass-card {
+            background: rgba(45, 27, 30, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .radar-chart-bg {
+            stroke: #e5e7eb;
+            stroke-width: 1;
+        }
+
+        .dark .radar-chart-bg {
+            stroke: #4b5563;
+        }
+
+        /* Smooth fade for badges */
+        .badge-unearned {
+            filter: grayscale(100%);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark font-display text-text-main dark:text-white antialiased transition-colors duration-200">
+    <!-- Top Navigation -->
+    <header
+        class="sticky top-0 z-50 bg-card-light/90 dark:bg-card-dark/90 backdrop-blur-md border-b border-[#f3e7ea] dark:border-[#3d2428] px-6 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-8">
+                <div class="flex items-center gap-3 text-primary">
+                    <div class="size-8 bg-primary rounded-lg flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined">restaurant_menu</span>
+                    </div>
+                    <h2 class="text-text-main dark:text-white text-xl font-bold tracking-tight">FoodiePlatform</h2>
+                </div>
+                <nav class="hidden md:flex items-center gap-6">
+                    <a class="text-text-main dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors"
+                        href="index.html">Home</a>
+                    <a class="text-text-main dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors"
+                        href="discovery.html">Discovery</a>
+                    <a class="text-text-main dark:text-gray-200 text-sm font-medium hover:text-primary transition-colors"
+                        href="reviews.html">Community</a>
+                    <a class="text-primary text-sm font-bold" href="user-profile.html">My Journey</a>
+                </nav>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden sm:flex items-center bg-[#f3e7ea] dark:bg-[#3d2428] rounded-lg px-3 py-2 w-64">
+                    <span class="material-symbols-outlined text-text-secondary">search</span>
+                    <input
+                        class="bg-transparent border-none text-sm text-text-main dark:text-white placeholder-text-secondary focus:ring-0 w-full ml-2"
+                        placeholder="Search cuisines..." />
+                </div>
+                <div class="bg-center bg-no-repeat bg-cover rounded-full size-10 border-2 border-primary cursor-pointer shadow-sm"
+                    data-alt="User profile picture showing a smiling person"
+                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA5Ohw5oQ3AWuSAKcHSqO9QW1G6Zr_bRUIzKEBiOiLgw-_fr66ZXjYoAC6qvQLrPotxp3v8w6AshxrGR2Z4HKQvuQhRQtmaUX6k6QqlCD3cSyGJ9ARa6nIgLPDLbKdR268j3EUKVBJAUMGOic-X8dQMiRAY2B4SHVjl2Q6t91ek-3cbVojnItWHLxCszG4-Ou_gIXP1LNhAo2uYOGX80FI8wV-r0HNhIfUxTZlDeqFp51Rqwway204jM8OlADtPGm8PuD5nuEpOTkM");'>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <!-- Breadcrumbs & Heading -->
+        <div class="mb-8">
+            <div class="flex items-center gap-2 text-sm text-text-secondary mb-3">
+                <a class="hover:text-primary" href="index.html">Home</a>
+                <span>/</span>
+                <a class="hover:text-primary" href="#">Profile</a>
+                <span>/</span>
+                <span class="text-text-main dark:text-white font-medium">My Gastronomy Journey</span>
+            </div>
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-text-main dark:text-white mb-2">
+                        My Gastronomy Journey</h1>
+                    <p class="text-text-secondary dark:text-gray-400 max-w-2xl">Visualize your taste, track your badges,
+                        and manage your CraveCredits wallet.</p>
+                </div>
+                <div class="flex gap-3">
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 bg-card-light dark:bg-card-dark border border-[#f3e7ea] dark:border-[#3d2428] rounded-lg text-sm font-medium shadow-sm hover:bg-gray-50 dark:hover:bg-[#362024] transition-colors">
+                        <span class="material-symbols-outlined text-base">share</span>
+                        Share Profile
+                    </button>
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg text-sm font-medium shadow-md transition-colors">
+                        <span class="material-symbols-outlined text-base">edit</span>
+                        Edit Taste
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Dashboard Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+            <!-- Left Column: User Profile -->
+            <aside class="md:col-span-4 lg:col-span-3 flex flex-col gap-6">
+                <!-- Profile Card -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl p-6 shadow-sm border border-[#f3e7ea] dark:border-[#3d2428] text-center">
+                    <div class="relative inline-block mb-4">
+                        <div class="w-32 h-32 mx-auto bg-cover bg-center rounded-full border-4 border-white dark:border-[#3d2428] shadow-lg"
+                            data-alt="User profile picture large"
+                            style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJGLNL38OKzkzX01aEwLUkk19HR20sXpaAnond4mh5MokHxYkB77gr2N_fTBVeNFqFaApk4ZCwH7GrQOfGtxbNCx7UrbPEENwymcFotgqRGCrGAVnPnJ7_hjwnOPGgSLs1ccq61U6f7iLodSE9gCYzSNxpExVZpKIpnMJ2XxFbqlxpd3SZyqSUzhI-0y-jOVPP7VaG_lAOnz00CE61_5tJG70yN0KcsFilgFqpVO6WX5Hg_zzY1Qpk-khhQtR4MzRVsxehz6GHIPA");'>
+                        </div>
+                        <div class="absolute bottom-1 right-1 bg-primary text-white rounded-full p-1.5 border-2 border-white dark:border-[#3d2428]"
+                            title="Verified Gourmand">
+                            <span class="material-symbols-outlined text-sm block">verified</span>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold text-text-main dark:text-white">@GourmetExplorer</h3>
+                    <p class="text-sm text-text-secondary dark:text-gray-400 mb-4">San Francisco, CA • Since 2023</p>
+                    <div class="flex justify-center gap-4 mb-6">
+                        <div class="text-center">
+                            <span class="block font-bold text-lg text-text-main dark:text-white">142</span>
+                            <span class="text-xs text-text-secondary uppercase tracking-wide">Reviews</span>
+                        </div>
+                        <div class="w-px bg-gray-200 dark:bg-gray-700 h-10"></div>
+                        <div class="text-center">
+                            <span class="block font-bold text-lg text-text-main dark:text-white">845</span>
+                            <span class="text-xs text-text-secondary uppercase tracking-wide">Photos</span>
+                        </div>
+                    </div>
+                    <!-- Level Progress -->
+                    <div class="text-left bg-background-light dark:bg-[#211114] p-4 rounded-lg">
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="text-sm font-bold text-primary">Level 14</span>
+                            <span class="text-xs font-semibold bg-primary/10 text-primary px-2 py-0.5 rounded">Seasoned
+                                Taster</span>
+                        </div>
+                        <div class="h-2 w-full bg-[#e7d0d4] dark:bg-gray-700 rounded-full overflow-hidden mb-2">
+                            <div class="h-full bg-primary rounded-full" style="width: 70%;"></div>
+                        </div>
+                        <p class="text-xs text-text-secondary text-right">300 XP to Level 15</p>
+                    </div>
+                </div>
+                <!-- Quick Menu -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl shadow-sm border border-[#f3e7ea] dark:border-[#3d2428] overflow-hidden">
+                    <a class="flex items-center gap-3 px-5 py-4 border-l-4 border-primary bg-primary/5 dark:bg-primary/10 text-primary font-medium"
+                        href="#">
+                        <span class="material-symbols-outlined">pie_chart</span>
+                        Overview
+                    </a>
+                    <a class="flex items-center gap-3 px-5 py-4 border-l-4 border-transparent text-text-main dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#362024] transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined text-text-secondary">rate_review</span>
+                        My Reviews
+                    </a>
+                    <a class="flex items-center gap-3 px-5 py-4 border-l-4 border-transparent text-text-main dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#362024] transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined text-text-secondary">bookmark</span>
+                        Saved Places
+                    </a>
+                    <a class="flex items-center gap-3 px-5 py-4 border-l-4 border-transparent text-text-main dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-[#362024] transition-colors"
+                        href="#">
+                        <span class="material-symbols-outlined text-text-secondary">settings</span>
+                        Settings
+                    </a>
+                </div>
+            </aside>
+            <!-- Center Column: Visualizations -->
+            <section class="md:col-span-8 lg:col-span-6 flex flex-col gap-6">
+                <!-- Flavor Map -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl p-6 shadow-sm border border-[#f3e7ea] dark:border-[#3d2428]">
+                    <div class="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 class="text-lg font-bold text-text-main dark:text-white">Your Flavor Map</h3>
+                            <p class="text-sm text-text-secondary">Based on your last 50 orders</p>
+                        </div>
+                        <button class="text-primary hover:bg-primary/5 p-2 rounded-full transition">
+                            <span class="material-symbols-outlined">info</span>
+                        </button>
+                    </div>
+                    <div class="relative w-full aspect-square max-h-[400px] flex items-center justify-center mx-auto">
+                        <!-- Radar Chart Visualization using SVG -->
+                        <svg class="w-full h-full max-w-[350px]" viewbox="0 0 200 200">
+                            <!-- Grid Circles/Polygons -->
+                            <polygon class="radar-chart-bg" fill="none"
+                                points="100,20 170,60 170,140 100,180 30,140 30,60"></polygon>
+                            <polygon class="radar-chart-bg" fill="none"
+                                points="100,40 152,70 152,130 100,160 48,130 48,70" stroke-dasharray="4 2"></polygon>
+                            <polygon class="radar-chart-bg" fill="none" opacity="0.5"
+                                points="100,60 135,80 135,120 100,140 65,120 65,80"></polygon>
+                            <!-- Axis Lines -->
+                            <line class="radar-chart-bg" x1="100" x2="100" y1="100" y2="20"></line>
+                            <line class="radar-chart-bg" x1="100" x2="170" y1="100" y2="60"></line>
+                            <line class="radar-chart-bg" x1="100" x2="170" y1="100" y2="140"></line>
+                            <line class="radar-chart-bg" x1="100" x2="100" y1="100" y2="180"></line>
+                            <line class="radar-chart-bg" x1="100" x2="30" y1="100" y2="140"></line>
+                            <line class="radar-chart-bg" x1="100" x2="30" y1="100" y2="60"></line>
+                            <!-- Data Polygon (The Flavor Profile) -->
+                            <!-- Points mapping: Spicy(Top), Sweet(TR), Salty(BR), Bitter(B), Sour(BL), Umami(TL) -->
+                            <!-- Example Data: High Spicy (100,25), Med Sweet (150,70), High Salty (160,135), Low Bitter (100,120), Med Sour (40,135), High Umami (35,65) -->
+                            <polygon fill="#db143c" fill-opacity="0.2"
+                                points="100,25 150,70 160,135 100,120 40,135 35,65" stroke="#db143c" stroke-width="2">
+                            </polygon>
+                            <!-- Data Points dots -->
+                            <circle cx="100" cy="25" fill="#db143c" r="3"></circle>
+                            <circle cx="150" cy="70" fill="#db143c" r="3"></circle>
+                            <circle cx="160" cy="135" fill="#db143c" r="3"></circle>
+                            <circle cx="100" cy="120" fill="#db143c" r="3"></circle>
+                            <circle cx="40" cy="135" fill="#db143c" r="3"></circle>
+                            <circle cx="35" cy="65" fill="#db143c" r="3"></circle>
+                            <!-- Labels -->
+                            <text class="text-text-main dark:text-gray-200 font-bold" fill="currentColor" font-size="8"
+                                text-anchor="middle" x="100" y="15">SPICY</text>
+                            <text class="text-text-main dark:text-gray-200 font-bold" fill="currentColor" font-size="8"
+                                text-anchor="start" x="175" y="55">SWEET</text>
+                            <text class="text-text-main dark:text-gray-200 font-bold" fill="currentColor" font-size="8"
+                                text-anchor="start" x="175" y="145">SALTY</text>
+                            <text class="text-text-main dark:text-gray-200 font-bold" fill="currentColor" font-size="8"
+                                text-anchor="middle" x="100" y="192">BITTER</text>
+                            <text class="text-text-main dark:text-gray-200 font-bold" fill="currentColor" font-size="8"
+                                text-anchor="end" x="25" y="145">SOUR</text>
+                            <text class="text-text-main dark:text-gray-200 font-bold" fill="currentColor" font-size="8"
+                                text-anchor="end" x="25" y="55">UMAMI</text>
+                        </svg>
+                    </div>
+                </div>
+                <!-- Badges Showcase -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl p-6 shadow-sm border border-[#f3e7ea] dark:border-[#3d2428]">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-text-main dark:text-white">Trophy Case</h3>
+                        <a class="text-sm text-primary font-medium hover:underline" href="#">View all</a>
+                    </div>
+                    <div class="grid grid-cols-4 sm:grid-cols-5 gap-4">
+                        <!-- Badge 1 -->
+                        <div class="flex flex-col items-center group cursor-pointer">
+                            <div
+                                class="size-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 rounded-full flex items-center justify-center mb-2 transition-transform group-hover:scale-110 shadow-sm">
+                                <span class="material-symbols-outlined text-3xl">ramen_dining</span>
+                            </div>
+                            <span class="text-xs font-semibold text-center text-text-main dark:text-gray-300">Noodle
+                                Ninja</span>
+                        </div>
+                        <!-- Badge 2 -->
+                        <div class="flex flex-col items-center group cursor-pointer">
+                            <div
+                                class="size-14 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-full flex items-center justify-center mb-2 transition-transform group-hover:scale-110 shadow-sm">
+                                <span class="material-symbols-outlined text-3xl">local_fire_department</span>
+                            </div>
+                            <span class="text-xs font-semibold text-center text-text-main dark:text-gray-300">Heat
+                                Seeker</span>
+                        </div>
+                        <!-- Badge 3 -->
+                        <div class="flex flex-col items-center group cursor-pointer">
+                            <div
+                                class="size-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full flex items-center justify-center mb-2 transition-transform group-hover:scale-110 shadow-sm">
+                                <span class="material-symbols-outlined text-3xl">dark_mode</span>
+                            </div>
+                            <span class="text-xs font-semibold text-center text-text-main dark:text-gray-300">Midnight
+                                Hero</span>
+                        </div>
+                        <!-- Badge 4 -->
+                        <div class="flex flex-col items-center group cursor-pointer">
+                            <div
+                                class="size-14 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mb-2 transition-transform group-hover:scale-110 shadow-sm">
+                                <span class="material-symbols-outlined text-3xl">eco</span>
+                            </div>
+                            <span class="text-xs font-semibold text-center text-text-main dark:text-gray-300">Green
+                                Eater</span>
+                        </div>
+                        <!-- Badge 5 (Unearned) -->
+                        <div class="flex flex-col items-center group cursor-pointer badge-unearned">
+                            <div
+                                class="size-14 bg-gray-100 dark:bg-gray-800 text-gray-400 rounded-full flex items-center justify-center mb-2 border border-dashed border-gray-300">
+                                <span class="material-symbols-outlined text-3xl">set_meal</span>
+                            </div>
+                            <span class="text-xs font-semibold text-center text-gray-400">Sushi Master</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Right Column: Wallet & History -->
+            <aside class="md:col-span-12 lg:col-span-3 flex flex-col gap-6">
+                <!-- Digital Wallet (Glassmorphism) -->
+                <div class="relative rounded-xl overflow-hidden shadow-md">
+                    <!-- Background blobs for glass effect context -->
+                    <div
+                        class="absolute top-0 right-0 w-32 h-32 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 w-32 h-32 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000">
+                    </div>
+                    <div
+                        class="absolute -bottom-8 -right-8 w-32 h-32 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000">
+                    </div>
+                    <!-- Glass Card Content -->
+                    <div class="relative z-10 p-6 glass-card min-h-[220px] flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p
+                                    class="text-xs font-semibold uppercase tracking-wider text-gray-700 dark:text-gray-200 mb-1">
+                                    CraveCredits Balance</p>
+                                <h2 class="text-3xl font-black text-text-main dark:text-white">$45.50</h2>
+                            </div>
+                            <span
+                                class="material-symbols-outlined text-2xl text-text-main dark:text-white">account_balance_wallet</span>
+                        </div>
+                        <div class="mt-4">
+                            <div class="flex justify-between text-sm mb-2 text-gray-800 dark:text-gray-200 font-mono">
+                                <span>**** **** **** 8829</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <p class="text-[10px] uppercase text-gray-600 dark:text-gray-300">Card Holder</p>
+                                    <p class="font-medium text-text-main dark:text-white">Gourmet Explorer</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-[10px] uppercase text-gray-600 dark:text-gray-300">Expires</p>
+                                    <p class="font-medium text-text-main dark:text-white">12/25</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-400/30 flex gap-2">
+                            <button
+                                class="flex-1 bg-primary hover:bg-primary-dark text-white py-2 rounded-lg text-xs font-bold shadow-md transition-colors uppercase tracking-wide">
+                                Top Up
+                            </button>
+                            <button
+                                class="flex-1 bg-white/50 dark:bg-black/20 hover:bg-white/70 text-text-main dark:text-white py-2 rounded-lg text-xs font-bold shadow-sm transition-colors uppercase tracking-wide">
+                                Redeem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Recent Activity Timeline -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl p-6 shadow-sm border border-[#f3e7ea] dark:border-[#3d2428]">
+                    <h3 class="text-lg font-bold text-text-main dark:text-white mb-4">Recent Journey</h3>
+                    <div class="relative pl-4 border-l-2 border-[#f3e7ea] dark:border-[#3d2428] space-y-6">
+                        <!-- Item 1 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[21px] top-1 size-3 rounded-full bg-primary border-2 border-white dark:border-[#2d1b1e]">
+                            </div>
+                            <p class="text-xs text-text-secondary mb-0.5">Yesterday, 7:30 PM</p>
+                            <p class="text-sm font-semibold text-text-main dark:text-white">Spicy Moon</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Ordered: Szechuan Dan Dan Noodles</p>
+                            <div class="flex items-center gap-1 mt-1 text-yellow-500">
+                                <span class="material-symbols-outlined text-[14px] fill-current">star</span>
+                                <span class="material-symbols-outlined text-[14px] fill-current">star</span>
+                                <span class="material-symbols-outlined text-[14px] fill-current">star</span>
+                                <span class="material-symbols-outlined text-[14px] fill-current">star</span>
+                                <span class="material-symbols-outlined text-[14px] fill-current">star_half</span>
+                            </div>
+                        </div>
+                        <!-- Item 2 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[21px] top-1 size-3 rounded-full bg-gray-300 dark:bg-gray-600 border-2 border-white dark:border-[#2d1b1e]">
+                            </div>
+                            <p class="text-xs text-text-secondary mb-0.5">Oct 24, 12:15 PM</p>
+                            <p class="text-sm font-semibold text-text-main dark:text-white">The Daily Bagel</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400">Ordered: Smoked Salmon Bagel</p>
+                        </div>
+                        <!-- Item 3 -->
+                        <div class="relative">
+                            <div
+                                class="absolute -left-[21px] top-1 size-3 rounded-full bg-primary border-2 border-white dark:border-[#2d1b1e]">
+                            </div>
+                            <p class="text-xs text-text-secondary mb-0.5">Oct 20, 8:00 PM</p>
+                            <p class="text-sm font-semibold text-text-main dark:text-white">Badge Earned!</p>
+                            <div
+                                class="flex items-center gap-2 mt-1 bg-orange-50 dark:bg-orange-900/20 p-2 rounded border border-orange-100 dark:border-orange-900/30">
+                                <span class="material-symbols-outlined text-orange-500 text-sm">ramen_dining</span>
+                                <span class="text-xs text-orange-700 dark:text-orange-300 font-medium">Noodle
+                                    Ninja</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <!-- Footer Simple -->
+    <footer class="mt-12 py-8 bg-white dark:bg-[#2a181b] border-t border-[#f3e7ea] dark:border-[#3d2428]">
+        <div class="max-w-7xl mx-auto px-6 text-center text-sm text-text-secondary">
+            <p>© 2024 FoodiePlatform. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

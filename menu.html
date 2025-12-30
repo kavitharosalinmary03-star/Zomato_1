@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Interactive Smart Menu</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#db143c",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211114",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d1b1e",
+                        "text-main": "#1b0e10",
+                        "text-muted": "#994d5c",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Custom Pulse Animation for Chef's Badge */
+        @keyframes subtle-pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(219, 20, 60, 0.4);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 6px rgba(219, 20, 60, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(219, 20, 60, 0);
+            }
+        }
+
+        .badge-pulse {
+            animation: subtle-pulse 2s infinite;
+        }
+
+        /* Hide scrollbar for clean horizontal scrolling if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-white font-display overflow-x-hidden">
+    <!-- Sticky Header -->
+    <header
+        class="sticky top-0 z-50 bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md border-b border-[#f3e7ea] dark:border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo Area -->
+                <div class="flex items-center gap-3">
+                    <div class="size-8 text-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined !text-[32px]">lunch_dining</span>
+                    </div>
+                    <h1 class="text-xl font-bold tracking-tight text-text-main dark:text-white">The Burger Joint</h1>
+                </div>
+                <!-- Desktop Nav Links -->
+                <nav class="hidden md:flex items-center gap-8">
+                    <a class="text-sm font-semibold text-text-muted hover:text-primary transition-colors"
+                        href="index.html">Home</a>
+                    <a class="text-sm font-semibold hover:text-primary transition-colors" href="menu.html">Menu</a>
+                    <a class="text-sm font-medium text-text-muted hover:text-primary transition-colors"
+                        href="discovery.html">Discover</a>
+                    <a class="text-sm font-medium text-text-muted hover:text-primary transition-colors"
+                        href="table-booking.html">Booking</a>
+                    <a class="text-sm font-medium text-text-muted hover:text-primary transition-colors"
+                        href="track-order.html">Track Order</a>
+                </nav>
+                <!-- Right Actions -->
+                <div class="flex items-center gap-3">
+                    <button
+                        class="flex items-center justify-center size-10 rounded-full bg-white dark:bg-white/10 text-text-main dark:text-white hover:bg-gray-100 transition-colors">
+                        <span class="material-symbols-outlined">search</span>
+                    </button>
+                    <button
+                        class="hidden sm:flex items-center gap-2 bg-surface-light dark:bg-white/10 border border-gray-200 dark:border-transparent px-4 py-2 rounded-full text-sm font-bold hover:bg-gray-50 transition-colors">
+                        <span class="material-symbols-outlined !text-[20px]">shopping_bag</span>
+                        <span>Cart (2)</span>
+                    </button>
+                    <button
+                        class="flex items-center gap-2 bg-primary text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg shadow-primary/30 hover:bg-red-700 transition-colors">
+                        Sign In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content Layout -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex flex-col md:flex-row gap-8 lg:gap-12 relative">
+            <!-- Left Column: Sticky Sidebar Navigation -->
+            <aside class="w-full md:w-64 flex-shrink-0">
+                <div class="md:sticky md:top-24 space-y-8">
+                    <!-- Categories -->
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark rounded-xl p-6 shadow-sm border border-[#f3e7ea] dark:border-white/5">
+                        <div class="mb-4">
+                            <h2 class="text-lg font-bold">Categories</h2>
+                            <p class="text-xs text-text-muted mt-1">Jump to section</p>
+                        </div>
+                        <nav class="flex flex-col gap-1">
+                            <a class="group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-text-muted hover:bg-[#f3e7ea] dark:hover:bg-white/5 hover:text-primary transition-colors"
+                                href="#starters">
+                                <span>Starters</span>
+                                <span
+                                    class="text-[10px] bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded text-gray-500 group-hover:text-primary transition-colors">4</span>
+                            </a>
+                            <a class="flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold bg-primary/10 text-primary"
+                                href="#burgers">
+                                <span>Signature Burgers</span>
+                                <span class="text-[10px] bg-white/50 px-1.5 py-0.5 rounded text-primary">8</span>
+                            </a>
+                            <a class="group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-text-muted hover:bg-[#f3e7ea] dark:hover:bg-white/5 hover:text-primary transition-colors"
+                                href="#sides">
+                                <span>Sides</span>
+                                <span
+                                    class="text-[10px] bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded text-gray-500 group-hover:text-primary transition-colors">6</span>
+                            </a>
+                            <a class="group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-text-muted hover:bg-[#f3e7ea] dark:hover:bg-white/5 hover:text-primary transition-colors"
+                                href="#drinks">
+                                <span>Drinks</span>
+                                <span
+                                    class="text-[10px] bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded text-gray-500 group-hover:text-primary transition-colors">12</span>
+                            </a>
+                            <a class="group flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium text-text-muted hover:bg-[#f3e7ea] dark:hover:bg-white/5 hover:text-primary transition-colors"
+                                href="#desserts">
+                                <span>Desserts</span>
+                                <span
+                                    class="text-[10px] bg-gray-100 dark:bg-white/10 px-1.5 py-0.5 rounded text-gray-500 group-hover:text-primary transition-colors">3</span>
+                            </a>
+                        </nav>
+                    </div>
+                    <!-- Promo Banner (Sidebar) -->
+                    <div
+                        class="relative overflow-hidden rounded-xl bg-gradient-to-br from-[#211114] to-primary p-6 text-white hidden md:block">
+                        <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white/10 rounded-full blur-2xl">
+                        </div>
+                        <span class="material-symbols-outlined text-4xl mb-3 text-white/90">local_fire_department</span>
+                        <h3 class="font-bold text-lg leading-tight mb-2">Spicy Lovers Combo</h3>
+                        <p class="text-sm text-white/80 mb-4">Get 20% off all spicy items this weekend!</p>
+                        <button
+                            class="w-full py-2 bg-white text-primary text-xs font-bold rounded-lg hover:bg-gray-100 transition-colors">View
+                            Offer</button>
+                    </div>
+                </div>
+            </aside>
+            <!-- Right Column: Menu Content -->
+            <main class="flex-1 min-w-0">
+                <!-- Page Header & Controls -->
+                <div class="flex flex-col gap-6 mb-8">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                        <div>
+                            <h2 class="text-4xl font-extrabold tracking-tight text-text-main dark:text-white mb-2">Our
+                                Menu</h2>
+                            <p class="text-text-muted">Fresh ingredients, bold flavors, made to order.</p>
+                        </div>
+                        <!-- Dietary Segmented Control -->
+                        <div class="flex bg-[#e8e0e2] dark:bg-white/5 p-1 rounded-lg self-start md:self-auto">
+                            <label class="cursor-pointer">
+                                <input checked="" class="peer sr-only" name="diet" type="radio" value="all" />
+                                <span
+                                    class="flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-medium text-text-muted transition-all peer-checked:bg-white peer-checked:text-primary peer-checked:shadow-sm dark:peer-checked:bg-surface-dark">
+                                    All
+                                </span>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input class="peer sr-only" name="diet" type="radio" value="veg" />
+                                <span
+                                    class="flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-medium text-text-muted transition-all peer-checked:bg-white peer-checked:text-primary peer-checked:shadow-sm dark:peer-checked:bg-surface-dark">
+                                    <span class="w-2 h-2 rounded-full bg-green-500"></span> Veg
+                                </span>
+                            </label>
+                            <label class="cursor-pointer">
+                                <input class="peer sr-only" name="diet" type="radio" value="gf" />
+                                <span
+                                    class="flex items-center gap-2 px-4 py-1.5 rounded-md text-sm font-medium text-text-muted transition-all peer-checked:bg-white peer-checked:text-primary peer-checked:shadow-sm dark:peer-checked:bg-surface-dark">
+                                    <span class="w-2 h-2 rounded-full bg-amber-500"></span> GF
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Search Bar -->
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <span
+                                class="material-symbols-outlined text-text-muted group-focus-within:text-primary transition-colors">search</span>
+                        </div>
+                        <input
+                            class="block w-full pl-12 pr-4 py-4 bg-surface-light dark:bg-surface-dark border-transparent focus:border-primary/20 focus:ring-0 rounded-xl shadow-sm text-text-main dark:text-white placeholder-text-muted/70 transition-all font-medium"
+                            placeholder="Search for burgers, ingredients, or sides..." type="text" />
+                    </div>
+                </div>
+                <!-- Menu Section: Signature Burgers -->
+                <section class="scroll-mt-28 mb-12" id="burgers">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-text-main dark:text-white">Signature Burgers</h3>
+                        <div class="h-[1px] flex-1 bg-gray-200 dark:bg-white/10 ml-6"></div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Menu Item 1: Chef's Rec (Active) -->
+                        <div
+                            class="group bg-surface-light dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-transparent hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 flex flex-col">
+                            <div class="relative h-48 rounded-xl overflow-hidden mb-4">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    data-alt="Juicy gourmet burger with melted cheese and fresh toppings"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCw-BNn3zdzO858x3IsFjtAIxZu3ES5WnYEdrjtB_7rbYe3cTCQbu8auMNk-nyZVBreIrvQ_hPyBHMFkbA7qVaNgcAurYS1nlAmDdiRTxLYV88lwA_MT1HbrdmpY_y_H4OFzyC8alrqi6PC2Gz5vadhUGpo_xJ12HS4GL8KDwDPNqA7MFdYEZnVBwcyPKfOCEKKZ93taE0Aph-SOuJbmpFt3P7QaFWIpXwKpG-gYl7v0JrYucZ8GBrk_ZJ0su7XPZc7J6SdmxjLyz8" />
+                                <!-- Pulsing Badge -->
+                                <div
+                                    class="absolute top-3 right-3 flex items-center gap-1 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full badge-pulse shadow-lg z-10">
+                                    <span class="material-symbols-outlined text-[16px]">verified</span>
+                                    Chef's Pick
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">
+                                        The Inferno Stack</h4>
+                                    <span class="font-bold text-lg text-primary">$14.50</span>
+                                </div>
+                                <p class="text-sm text-text-muted mb-4 line-clamp-2">Double beef patty, roasted jalapeño
+                                    relish, melted pepper jack cheese, and our signature spicy sriracha mayo.</p>
+                                <div class="mt-auto flex gap-3 pt-4 border-t border-gray-100 dark:border-white/5">
+                                    <button
+                                        class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border border-primary text-primary font-bold text-sm hover:bg-primary hover:text-white transition-colors group/btn">
+                                        <span class="material-symbols-outlined text-[18px]">tune</span>
+                                        Customize
+                                    </button>
+                                    <button
+                                        class="flex items-center justify-center size-10 rounded-lg bg-[#f3e7ea] dark:bg-white/10 text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Menu Item 2: Standard (Active) -->
+                        <div
+                            class="group bg-surface-light dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-transparent hover:border-primary/20 hover:shadow-md transition-all duration-300 flex flex-col">
+                            <div class="relative h-48 rounded-xl overflow-hidden mb-4">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    data-alt="Classic cheeseburger with lettuce and tomato on a sesame bun"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdhuL5qapGZgAyr7xPqxEVfQytkbCKDe_OG2omLm85V8aI5kn5QOg71WspVhu7ikLr-gAho9ng1nf5Vc35XZu-zHk_CpAVBpAam3orOF83GbMJ3ykXTkPKlpfBVr_2PTzPgd5CLMENYkd2IdphmLn-Dcfdljgtm_9G7hsnf6L19JG2clqAtXfnfDveyWzR4-QpvukgTUFqrMBgqIN6Ti4PABRE3-x9Wo1J5QUFXT0W97ENd9I6xNcZH9Z-VT2rTQCo6F5yzUXJyYY" />
+                            </div>
+                            <div class="flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">
+                                        Classic Royale</h4>
+                                    <span class="font-bold text-lg text-primary">$12.00</span>
+                                </div>
+                                <p class="text-sm text-text-muted mb-4 line-clamp-2">Quarter pounder with cheddar, fresh
+                                    lettuce, tomato, pickles, and house sauce on a toasted brioche bun.</p>
+                                <div class="mt-auto flex gap-3 pt-4 border-t border-gray-100 dark:border-white/5">
+                                    <button
+                                        class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border border-gray-200 dark:border-white/10 text-text-main dark:text-white font-bold text-sm hover:border-primary hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]">tune</span>
+                                        Customize
+                                    </button>
+                                    <button
+                                        class="flex items-center justify-center size-10 rounded-lg bg-[#f3e7ea] dark:bg-white/10 text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Menu Item 3: Vegetarian (Active) -->
+                        <div
+                            class="group bg-surface-light dark:bg-surface-dark rounded-2xl p-4 shadow-sm border border-transparent hover:border-primary/20 hover:shadow-md transition-all duration-300 flex flex-col">
+                            <div class="relative h-48 rounded-xl overflow-hidden mb-4">
+                                <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                    data-alt="Gourmet vegetarian burger with avocado and sprouts"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKAf6RcO2eb4h-IW4jG4DWBgkVKn-NwbU6OwsACrGwzSiwJsMHeee2Q42HhJf3mfpIXYf0MHbKwW-vVe1lPOVDS7OgKpinvPeUmusDD1iOxJWJ46Ht01Ah269iIUBhNhUvu8WwTP-dj1BFe_LTIgoTcBkZmwxXcq6v96kSZVZoX4b95JKwrGK6JFg33JLI_1hxkop1VVVO7nr-FJy-zmdXjm7p9lAQOv1knKTuX_dvqgnhXjVjMTHIPg-DfJUygjyi6vt3OnzjBFY" />
+                                <div
+                                    class="absolute top-3 left-3 flex items-center gap-1 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-md shadow-sm z-10">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> VEG
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4
+                                        class="text-lg font-bold text-text-main dark:text-white group-hover:text-primary transition-colors">
+                                        Portobello Truffle</h4>
+                                    <span class="font-bold text-lg text-primary">$13.50</span>
+                                </div>
+                                <p class="text-sm text-text-muted mb-4 line-clamp-2">Grilled portobello mushroom cap,
+                                    truffle aioli, swiss cheese, caramelized onions, and arugula.</p>
+                                <div class="mt-auto flex gap-3 pt-4 border-t border-gray-100 dark:border-white/5">
+                                    <button
+                                        class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border border-gray-200 dark:border-white/10 text-text-main dark:text-white font-bold text-sm hover:border-primary hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]">tune</span>
+                                        Customize
+                                    </button>
+                                    <button
+                                        class="flex items-center justify-center size-10 rounded-lg bg-[#f3e7ea] dark:bg-white/10 text-text-main dark:text-white hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Menu Item 4: Grayed Out Logic Simulation (Simulating User selected 'Veg') -->
+                        <div
+                            class="relative group rounded-2xl p-4 border border-transparent transition-all duration-300 flex flex-col opacity-50 bg-gray-100 dark:bg-white/5 grayscale select-none pointer-events-none">
+                            <!-- Overlay for clarity on hover/state -->
+                            <div
+                                class="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <!-- Optional: could put a lock icon here -->
+                            </div>
+                            <div class="relative h-48 rounded-xl overflow-hidden mb-4 bg-gray-200">
+                                <img class="w-full h-full object-cover mix-blend-luminosity"
+                                    data-alt="Double bacon cheeseburger"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN_W4C1iRs0zrJ6ycDxtVeAHvI2F3OztFCtzUvJaW8akAky3orqynl4V8--QjonrKAECGeU11t8XhxEzfFfIA6CQH7xHmstGAm7SEF8Dtz8cD58j2IO5Tc8e0KDyQ2TTj-7Z2wQ1Ig5t60o_rLlCwA4q2OmT_1UmxjSY2FqRuX-NyJhzowGTpx1Gcf0m3aKlUE6xYeuC2I56N4EE3wJjYZjmzrwX3_u9FuxrOH0UyuwcmAY4A6vZF24bKuFTF_jGGFhkbglP4KiKE" />
+                                <div
+                                    class="absolute top-3 left-3 flex items-center gap-1 bg-gray-200 text-gray-500 text-[10px] font-bold px-2 py-1 rounded-md z-10">
+                                    NON-VEG
+                                </div>
+                            </div>
+                            <div class="flex-1 flex flex-col">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="text-lg font-bold text-gray-500">Double Bacon Blast</h4>
+                                    <span class="font-bold text-lg text-gray-400">$15.00</span>
+                                </div>
+                                <p class="text-sm text-gray-400 mb-4 line-clamp-2">Two patties, four strips of bacon,
+                                    american cheese, and BBQ sauce.</p>
+                                <div class="mt-auto flex gap-3 pt-4 border-t border-gray-200">
+                                    <button
+                                        class="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border border-gray-300 text-gray-400 font-bold text-sm"
+                                        disabled="">
+                                        <span class="material-symbols-outlined text-[18px]">tune</span>
+                                        Customize
+                                    </button>
+                                    <button
+                                        class="flex items-center justify-center size-10 rounded-lg bg-gray-200 text-gray-400"
+                                        disabled="">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Menu Section: Sides -->
+                <section class="scroll-mt-28 mb-12" id="sides">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-text-main dark:text-white">Sides &amp; Snacks</h3>
+                        <div class="h-[1px] flex-1 bg-gray-200 dark:bg-white/10 ml-6"></div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Side Item 1 -->
+                        <div
+                            class="group flex gap-4 bg-surface-light dark:bg-surface-dark rounded-xl p-3 shadow-sm border border-transparent hover:border-primary/20 hover:shadow-md transition-all">
+                            <div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Crispy french fries in a basket"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX4VJeQbUSsK6cp1M6MnLnu4Mtly-ieWLCsPHhy6oCApa5TTGHKNYJO5dPCExOVLzjDS_GZK5BUFI7gu6hd6ImoxcP-i6N77SMuEbGfEPUZeAxTfnSG6-4MSx82IzYd-yVhdKz3Zm_7VoDYeI4SkK0Ct2784PoLlpVfWJgRslTbVWdezIUIlQ7GamtYZg2lhUTuPihB54FMem7WFVcR4FmJsxc4TZo4BKbyXJcfwcW3XQokfRWZOdgubslHxOumbXYh-pOBOR7ALA" />
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-bold text-text-main dark:text-white group-hover:text-primary">
+                                            Rustic Fries</h4>
+                                        <span class="font-bold text-primary">$4.50</span>
+                                    </div>
+                                    <p class="text-xs text-text-muted mt-1">Hand-cut, sea salt, rosemary.</p>
+                                </div>
+                                <div class="flex justify-end mt-2">
+                                    <button
+                                        class="flex items-center justify-center size-8 rounded-lg bg-[#f3e7ea] dark:bg-white/10 text-primary hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Side Item 2 -->
+                        <div
+                            class="group flex gap-4 bg-surface-light dark:bg-surface-dark rounded-xl p-3 shadow-sm border border-transparent hover:border-primary/20 hover:shadow-md transition-all">
+                            <div class="w-24 h-24 flex-shrink-0 rounded-lg overflow-hidden">
+                                <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                    data-alt="Onion rings stacked on a plate"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9mL1BiEN3DL4mJGTtQx-OKY8xdqKfbk2oPk6YzZpo8OrDMl82r0NxfE6XtRIXkeVvEfyzpoZJYoJ0NUhDYXhrcOYBUF6-Ho71m_XZI92pkAuH_Go1c-DmSAqlJaQmOp_LU7dJCua8rxW7Z6v5Tda2sLc1G_JKgkETEKhJhhC6Jb3gLsiG4hDzgrQl-qG8Ms12mNDy3JDRiEjD8jGfyJ06vDtLx7byGhR4eDzJPcvcmppE2ta4RWsFBcSaY6c3EL_4pc_IBzZwnp4" />
+                            </div>
+                            <div class="flex-1 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="font-bold text-text-main dark:text-white group-hover:text-primary">
+                                            Golden Rings</h4>
+                                        <span class="font-bold text-primary">$5.50</span>
+                                    </div>
+                                    <p class="text-xs text-text-muted mt-1">Beer-battered onion rings with ranch.</p>
+                                </div>
+                                <div class="flex justify-end mt-2">
+                                    <button
+                                        class="flex items-center justify-center size-8 rounded-lg bg-[#f3e7ea] dark:bg-white/10 text-primary hover:bg-primary hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined text-[18px]">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Menu Section: Drinks -->
+                <section class="scroll-mt-28" id="drinks">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-2xl font-bold text-text-main dark:text-white">Thirst Quenchers</h3>
+                        <div class="h-[1px] flex-1 bg-gray-200 dark:bg-white/10 ml-6"></div>
+                    </div>
+                    <!-- Simple list for drinks -->
+                    <div class="space-y-3">
+                        <div
+                            class="flex items-center justify-between p-4 bg-surface-light dark:bg-surface-dark rounded-xl border border-transparent hover:border-primary/20 transition-all">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="size-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center">
+                                    <span class="material-symbols-outlined">local_bar</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-text-main dark:text-white">Craft Cola</h4>
+                                    <p class="text-xs text-text-muted">Cane sugar, vanilla bean.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="font-bold text-text-main dark:text-white">$3.00</span>
+                                <button class="text-primary hover:bg-primary/10 rounded-full p-1 transition-colors">
+                                    <span class="material-symbols-outlined">add_circle</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                            class="flex items-center justify-between p-4 bg-surface-light dark:bg-surface-dark rounded-xl border border-transparent hover:border-primary/20 transition-all">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="size-10 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center">
+                                    <span class="material-symbols-outlined">local_cafe</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-text-main dark:text-white">Hand-Spun Milkshake</h4>
+                                    <p class="text-xs text-text-muted">Chocolate, Vanilla, or Strawberry.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="font-bold text-text-main dark:text-white">$6.00</span>
+                                <button class="text-primary hover:bg-primary/10 rounded-full p-1 transition-colors">
+                                    <span class="material-symbols-outlined">add_circle</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Bottom spacer -->
+                <div class="h-20"></div>
+            </main>
+        </div>
+    </div>
+    <!-- Floating Cart Button Mobile (Optional) -->
+    <div class="fixed bottom-6 right-6 md:hidden z-40">
+        <button class="flex items-center gap-2 bg-text-main text-white px-6 py-4 rounded-full shadow-xl font-bold">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span>2 Items • $26.50</span>
+        </button>
+    </div>
+</body>
+
+</html>

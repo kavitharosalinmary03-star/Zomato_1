@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Green Dining Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#db143c",
+                        "primary-dark": "#b01030",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211114",
+                        "sage": {
+                            50: '#f2f7f2',
+                            100: '#dbece0',
+                            200: '#c5e0cc',
+                            300: '#9cc6a6',
+                            500: '#5e946a',
+                            700: '#3d6145',
+                            800: '#2e4a34',
+                            900: '#1a2e1e',
+                        },
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d1a1d",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-50 font-display overflow-x-hidden min-h-screen flex flex-col">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-[#f3e7ea] dark:border-white/10 bg-surface-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="flex items-center justify-between px-6 py-3 max-w-[1440px] mx-auto w-full">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3">
+<div class="text-primary size-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-3xl icon-filled">local_dining</span>
+</div>
+<h2 class="text-slate-900 dark:text-white text-xl font-bold tracking-tight">Foodie</h2>
+</div>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="index.html">Home</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Browse</a>
+<a class="text-primary text-sm font-bold bg-primary/10 px-3 py-1 rounded-full" href="#">Green Dining</a>
+<a class="text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary text-sm font-medium transition-colors" href="#">Orders</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden sm:flex items-center bg-[#f3e7ea] dark:bg-white/5 rounded-lg h-10 px-3 w-64 border border-transparent focus-within:border-primary/50 transition-colors">
+<span class="material-symbols-outlined text-slate-400">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-full text-slate-900 dark:text-white placeholder:text-slate-400" placeholder="Search eco-friendly food..."/>
+</div>
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full bg-slate-100 dark:bg-white/10 flex items-center justify-center hover:bg-slate-200 dark:hover:bg-white/20 transition-colors relative">
+<span class="material-symbols-outlined text-slate-600 dark:text-slate-300">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-primary rounded-full ring-2 ring-white dark:ring-[#211114]"></span>
+</button>
+<div class="h-10 w-10 rounded-full bg-cover bg-center border-2 border-white dark:border-white/10 shadow-sm" data-alt="User profile picture of a smiling young woman" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAn6sDKDEjIoenoshA9Ma0C50HUkPlDWJw-3FP8KVuMx4eKfcvhewwxbu6JDPxP_PdyGF2wIauNTuXf3qxjFsue0tRt8lofvigfxLrNPv9HQCaP5Ltd-LPVtTamoWxCCrLgha6PEOzWm5SfKnB3oLnEvvJs0W6HMihZEsZitYo_QFo2leGJYZ_JCMgW6tx7etzcQHhAg6kwuJSlqV-5OHqlzeFVsJo-4IIKeV-pnX_KLE34TIvPIW2rBU--YtKDZRZTDcOIoOIz0Fc');"></div>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Layout -->
+<main class="flex-1 w-full max-w-[1440px] mx-auto px-4 sm:px-6 py-8 gap-8">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
+<div class="flex flex-col gap-2">
+<div class="flex items-center gap-2 text-sage-500 dark:text-sage-300 font-medium text-sm mb-1">
+<span class="material-symbols-outlined text-lg">eco</span>
+<span>Sustainability Dashboard</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-tight">
+                    Green Dining Impact
+                </h1>
+<p class="text-slate-500 dark:text-slate-400 text-lg max-w-2xl">
+                    Track your environmental contribution and compete with neighbors to build a sustainable future.
+                </p>
+</div>
+<div class="flex gap-3">
+<button class="h-12 px-6 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-white font-bold hover:bg-slate-50 dark:hover:bg-white/10 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined">share</span>
+                    Share Impact
+                </button>
+<button class="h-12 px-6 rounded-lg bg-primary hover:bg-primary-dark text-white font-bold shadow-lg shadow-primary/20 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">restaurant</span>
+                    Order Eco-Friendly
+                </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Left Column: Metrics & Analysis (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Hero Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Stat 1 -->
+<div class="bg-sage-100 dark:bg-sage-900/40 rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 text-sage-200 dark:text-sage-800/50 opacity-50 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined" style="font-size: 120px;">cloud_off</span>
+</div>
+<div class="relative z-10 flex flex-col h-full justify-between gap-4">
+<div class="p-2 bg-white dark:bg-sage-800 rounded-lg w-fit shadow-sm">
+<span class="material-symbols-outlined text-sage-700 dark:text-sage-300">co2</span>
+</div>
+<div>
+<p class="text-sage-800 dark:text-sage-200 font-medium text-sm mb-1">Total CO2 Saved</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-4xl font-black text-sage-900 dark:text-white tracking-tight">12.5 <span class="text-xl font-bold">kg</span></h3>
+</div>
+<p class="text-sage-600 dark:text-sage-400 text-sm mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                                    +5% from last month
+                                </p>
+</div>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-sage-100 dark:bg-sage-900/40 rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 text-sage-200 dark:text-sage-800/50 opacity-50 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined" style="font-size: 120px;">no_meals</span>
+</div>
+<div class="relative z-10 flex flex-col h-full justify-between gap-4">
+<div class="p-2 bg-white dark:bg-sage-800 rounded-lg w-fit shadow-sm">
+<span class="material-symbols-outlined text-sage-700 dark:text-sage-300">soup_kitchen</span>
+</div>
+<div>
+<p class="text-sage-800 dark:text-sage-200 font-medium text-sm mb-1">No-Cutlery Orders</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-4xl font-black text-sage-900 dark:text-white tracking-tight">42</h3>
+</div>
+<p class="text-sage-600 dark:text-sage-400 text-sm mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                                    +2 this week
+                                </p>
+</div>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-sage-100 dark:bg-sage-900/40 rounded-xl p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 text-sage-200 dark:text-sage-800/50 opacity-50 group-hover:scale-110 transition-transform duration-500">
+<span class="material-symbols-outlined" style="font-size: 120px;">recycling</span>
+</div>
+<div class="relative z-10 flex flex-col h-full justify-between gap-4">
+<div class="p-2 bg-white dark:bg-sage-800 rounded-lg w-fit shadow-sm">
+<span class="material-symbols-outlined text-sage-700 dark:text-sage-300">delete_forever</span>
+</div>
+<div>
+<p class="text-sage-800 dark:text-sage-200 font-medium text-sm mb-1">Plastic Diverted</p>
+<div class="flex items-baseline gap-2">
+<h3 class="text-4xl font-black text-sage-900 dark:text-white tracking-tight">88</h3>
+</div>
+<p class="text-sage-600 dark:text-sage-400 text-sm mt-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                                    +15% overall
+                                </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Achievements Section -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-white/5 p-8">
+<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-2">
+<h2 class="text-2xl font-bold text-slate-900 dark:text-white">Your Eco-Achievements</h2>
+<p class="text-slate-500 dark:text-slate-400">Every small choice adds up. Here is a breakdown of your sustainable actions this year.</p>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Card 1 -->
+<div class="flex flex-col gap-3 p-4 rounded-lg bg-slate-50 dark:bg-white/5 hover:bg-sage-50 dark:hover:bg-sage-900/20 transition-colors border border-transparent hover:border-sage-200 dark:hover:border-sage-800 group">
+<div class="text-sage-500 dark:text-sage-400 bg-white dark:bg-white/10 w-fit p-2 rounded-lg shadow-sm group-hover:text-sage-600 group-hover:scale-110 transition-all">
+<span class="material-symbols-outlined">forest</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-1">Trees Equivalent</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Your savings are equivalent to planting <span class="font-bold text-primary">4 new saplings</span>.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="flex flex-col gap-3 p-4 rounded-lg bg-slate-50 dark:bg-white/5 hover:bg-sage-50 dark:hover:bg-sage-900/20 transition-colors border border-transparent hover:border-sage-200 dark:hover:border-sage-800 group">
+<div class="text-sage-500 dark:text-sage-400 bg-white dark:bg-white/10 w-fit p-2 rounded-lg shadow-sm group-hover:text-sage-600 group-hover:scale-110 transition-all">
+<span class="material-symbols-outlined">lightbulb</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-1">Energy Saved</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">Saved enough CO2 to power a lightbulb for <span class="font-bold text-primary">3 years</span>.</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="flex flex-col gap-3 p-4 rounded-lg bg-slate-50 dark:bg-white/5 hover:bg-sage-50 dark:hover:bg-sage-900/20 transition-colors border border-transparent hover:border-sage-200 dark:hover:border-sage-800 group">
+<div class="text-sage-500 dark:text-sage-400 bg-white dark:bg-white/10 w-fit p-2 rounded-lg shadow-sm group-hover:text-sage-600 group-hover:scale-110 transition-all">
+<span class="material-symbols-outlined">takeout_dining</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 dark:text-white mb-1">Waste Reduction</h3>
+<p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">By choosing eco-packaging, you diverted <span class="font-bold text-primary">2kg of waste</span>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Recommended Restaurants -->
+<div class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<h2 class="text-xl font-bold text-slate-900 dark:text-white">Dine Green Near You</h2>
+<a class="text-primary text-sm font-bold hover:underline" href="#">View All</a>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<!-- Restaurant 1 -->
+<a class="group flex flex-col md:flex-row gap-4 bg-white dark:bg-surface-dark p-3 rounded-xl border border-slate-100 dark:border-white/5 hover:border-primary/30 hover:shadow-lg transition-all" href="#">
+<div class="w-full md:w-32 h-32 rounded-lg bg-cover bg-center shrink-0" data-alt="Fresh colorful salad bowl from Green Leaf Cafe" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA3rptqnbCwJX3zS7AA5nsJOX4rauGoAJcV0RZqFCeZgNDWtawiDZqKxn0DNtBOM1UYvbn19yUtmB2UZTXB5sl4tGJvzMBT_XD2qSNplo5aG95lnOeKq8w0I-dv_vabbpvrzUVKUistFW2WijQM61f1qbNTqlMtTsgRI09nqODkVlI3VDMOXASszBEDasCeuqwe60YD4lLCR-gkNYGx9JCII-0lhzXCNNbxiglQ2s2VpMPeS6FX7r5aPFkOUEeQnrzgst2YlVhQRgo');"></div>
+<div class="flex flex-col justify-between py-1 flex-1">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Green Leaf Cafe</h3>
+<span class="bg-sage-100 dark:bg-sage-900 text-sage-700 dark:text-sage-300 text-[10px] uppercase font-bold px-2 py-1 rounded tracking-wider">Eco-Pack</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Healthy • Vegan Options • $$</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-yellow-400 text-sm icon-filled">star</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">4.8</span>
+<span class="text-sm text-slate-400">(120+)</span>
+</div>
+</div>
+</a>
+<!-- Restaurant 2 -->
+<a class="group flex flex-col md:flex-row gap-4 bg-white dark:bg-surface-dark p-3 rounded-xl border border-slate-100 dark:border-white/5 hover:border-primary/30 hover:shadow-lg transition-all" href="#">
+<div class="w-full md:w-32 h-32 rounded-lg bg-cover bg-center shrink-0" data-alt="Organic avocado toast plate from Sprout Kitchen" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBvrhdTQIOTsY9N-ezBvd3yRc9_7E077CjgvTeVsMzkpftkSHYeQOYXjFloKdb2x_50BaA3jCzbbblX1suqYE74sFn02-NcIxOeGR2JLbdbz4Lv6m1JLoTnSn20LIgRnu0Jlz0NbDf8cxNAubtjKsu1NjULtPBYUzn6CVZ2hbzNAcdJfJfMbt_4uT5GKLmxX5FTPIoFa7QtYdTBQaPXRkz1FvZcs4wZltqZjKkHZ9aAYzDPCfWvgNGWlTAsxlJ6Juz-0EwuYGkwAEg');"></div>
+<div class="flex flex-col justify-between py-1 flex-1">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="font-bold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Sprout Kitchen</h3>
+<span class="bg-sage-100 dark:bg-sage-900 text-sage-700 dark:text-sage-300 text-[10px] uppercase font-bold px-2 py-1 rounded tracking-wider">Plastic-Free</span>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Organic • Breakfast • $$$</p>
+</div>
+<div class="flex items-center gap-2 mt-2">
+<span class="material-symbols-outlined text-yellow-400 text-sm icon-filled">star</span>
+<span class="text-sm font-bold text-slate-900 dark:text-white">4.9</span>
+<span class="text-sm text-slate-400">(85)</span>
+</div>
+</div>
+</a>
+</div>
+</div>
+</div>
+<!-- Right Column: Leaderboard (4 cols) -->
+<div class="lg:col-span-4 flex flex-col gap-6 sticky top-24">
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-slate-200 dark:border-white/5 p-6 shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-bold text-slate-900 dark:text-white leading-tight">Neighborhood<br/>Leaderboard</h2>
+<div class="bg-primary/10 text-primary p-2 rounded-lg">
+<span class="material-symbols-outlined">trophy</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<!-- Top 3 -->
+<!-- Rank 1 -->
+<div class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<div class="font-bold text-lg text-yellow-500 w-6 text-center">1</div>
+<div class="size-10 rounded-full bg-cover bg-center ring-2 ring-yellow-500/50" data-alt="Profile of Sarah J." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDYVzjrzETp-MS3-FIZE6gwqDrolQTUreGSRCK9tVVWw6ay31F56iiw2HF9P1g-jU1cBVtx5aSVv-K665bRJl0AGobF2EXaHiV6sbYzaUeVShgx7a01eQ95FzWOT-Jb2lRTHLIB6fDTY4pqvy6WkR08QBmpRE93xexf1d17Zan4F5vDrUxtqLO5sg3-yWwfCBZGiPDl8DqEX1EjeErOahmKKrYJlu1Nj9UaxQAmWnJfEaHtK_x78CWeoOhCZmjasobPI6BKl87kkIU');"></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-900 dark:text-white truncate">Sarah Jenkins</p>
+<p class="text-xs text-sage-600 dark:text-sage-400">Green Champion</p>
+</div>
+<div class="text-sm font-bold text-slate-900 dark:text-white">1,240 <span class="text-xs font-normal text-slate-500">pts</span></div>
+</div>
+<!-- Rank 2 -->
+<div class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<div class="font-bold text-lg text-slate-400 w-6 text-center">2</div>
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Profile of Mike T." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBOcQewCqtjlsnoUpZt-JS8qhxWZ9fzHaxm2V9uRs9pY0ExB6-Lm0hPwxCaHSeD1YkjqK3JDQvi4nFG-cWY6Kpr9nt-r8VpNZKtwKwMOYSZwhU5Do_1tUv38LFhvnX0wn5voW3c6hKoQL7jt5Kw-XaslC6SLkiGcX3ZS6_9448a9KnesQHnNjYu3Qsm0UEvY-yiTPznJyKalMtyRQVwk6mP6Q9ihnU8E2cw8C8kyOINzJUjVsDUc8_StbtKMvIPqu20_lRxV3MRXtI');"></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-900 dark:text-white truncate">Mike Taylor</p>
+<p class="text-xs text-sage-600 dark:text-sage-400">Eco Warrior</p>
+</div>
+<div class="text-sm font-bold text-slate-900 dark:text-white">1,150 <span class="text-xs font-normal text-slate-500">pts</span></div>
+</div>
+<!-- Rank 3 -->
+<div class="flex items-center gap-3 p-3 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+<div class="font-bold text-lg text-orange-400 w-6 text-center">3</div>
+<div class="size-10 rounded-full bg-cover bg-center" data-alt="Profile of David L." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBbQcQnmakHgjfZdXsf_ZtCi3RF1y13GmU8sPNk9kpTlOLk_GL7qIDvqe9QTf7LlecdWI9TXeLFfxWEzkCqrU5wxvtdF6U4SR7qlvrVBJhlO1Ak4xQnZoulIzSklP5M6zPKyH4kejLpw5NBada2EDIqGD5xvaDzXL_8K1GNTX4RBODt6D_6ENbTfTLD8rBJImZ1NvLLhb5a73bjY91JZ6T1NuwShk_dnQ-7kytKKd2DZ0LzMmwxd0DA9gBzLHF0BUw8gJNzbXHKLaM');"></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-900 dark:text-white truncate">David Lee</p>
+<p class="text-xs text-sage-600 dark:text-sage-400">Sustainable Diner</p>
+</div>
+<div class="text-sm font-bold text-slate-900 dark:text-white">980 <span class="text-xs font-normal text-slate-500">pts</span></div>
+</div>
+<div class="h-px bg-slate-100 dark:bg-white/10 my-2"></div>
+<!-- User Rank -->
+<div class="flex items-center gap-3 p-3 rounded-lg bg-primary/5 dark:bg-primary/10 border border-primary/20">
+<div class="font-bold text-lg text-primary w-6 text-center">42</div>
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-primary" data-alt="Your profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCOsBPAkrkLeSltOYagBEIfb7x-xv_hbysa4GjavokUoDsKjBVLcioyI2cAFQcHyAVnfmu7X1JLZtw5Wee9WA0gEjVxOhJc75P18YFTaddj0tYwo9uv5wpceNIcT50VQztM_klUxUqi9Cd9Zd3Aw_NWXkt3e6scZ9hCTjVLOB5hPjXQrTR9tjAF85H1g_WOOrPlWx3Uoy_jwZi--QkcuOmZEDBRAjXCxvDYtqdh7w9OfhsJbgFPawIYMeXFWH98XI-xKmi31LNeTp4');"></div>
+<div class="flex-1 min-w-0">
+<p class="text-sm font-bold text-slate-900 dark:text-white truncate">You</p>
+<p class="text-xs text-primary">Keep going!</p>
+</div>
+<div class="text-sm font-bold text-slate-900 dark:text-white">420 <span class="text-xs font-normal text-slate-500">pts</span></div>
+</div>
+</div>
+<button class="w-full mt-4 text-center text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-primary py-2 transition-colors">
+                        View full leaderboard
+                    </button>
+</div>
+<!-- Green Tip Card -->
+<div class="bg-sage-500 rounded-xl p-6 text-white relative overflow-hidden">
+<div class="absolute -right-6 -bottom-6 text-white/20">
+<span class="material-symbols-outlined" style="font-size: 100px;">lightbulb</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-white/90">info</span>
+<span class="font-bold uppercase tracking-wider text-xs text-white/90">Daily Fact</span>
+</div>
+<p class="font-medium leading-relaxed mb-4">
+                            Did you know? Skipping plastic cutlery for just one month saves enough plastic to wrap around a bicycle.
+                        </p>
+<button class="text-sm font-bold bg-white text-sage-700 px-4 py-2 rounded-lg hover:bg-sage-50 transition-colors w-full">
+                            Learn More
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

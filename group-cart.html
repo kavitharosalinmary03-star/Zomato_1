@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Group Cart Experience</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#db143c",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211114",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d1b1e",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-[#1b0e10] dark:text-gray-100 font-display transition-colors duration-200">
+    <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        <!-- Top Navigation -->
+        <header
+            class="sticky top-0 z-50 bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-[#f3e7ea] dark:border-gray-800 px-4 lg:px-10 py-3">
+            <div class="flex items-center justify-between whitespace-nowrap max-w-[1280px] mx-auto w-full">
+                <div class="flex items-center gap-4 text-[#1b0e10] dark:text-white">
+                    <div class="size-8 text-primary flex items-center justify-center">
+                        <span class="material-symbols-outlined text-3xl">local_dining</span>
+                    </div>
+                    <h2 class="text-[#1b0e10] dark:text-white text-lg font-bold leading-tight tracking-[-0.015em]">Group
+                        Order: Friday Lunch</h2>
+                </div>
+                <div class="flex flex-1 justify-end gap-4 lg:gap-8 items-center">
+                    <nav class="hidden md:flex gap-6">
+                        <a class="text-sm font-medium text-[#1b0e10] dark:text-gray-300 hover:text-primary transition-colors"
+                            href="index.html">Home</a>
+                        <a class="text-sm font-medium text-[#1b0e10] dark:text-gray-300 hover:text-primary transition-colors"
+                            href="discovery.html">Discovery</a>
+                        <a class="text-sm font-medium text-[#1b0e10] dark:text-gray-300 hover:text-primary transition-colors"
+                            href="menu.html">Menu</a>
+                        <a class="text-primary text-sm font-bold" href="group-cart.html">Group Cart</a>
+                        <a class="text-sm font-medium text-[#1b0e10] dark:text-gray-300 hover:text-primary transition-colors"
+                            href="track-order.html">Orders</a>
+                        <a class="text-sm font-medium text-[#1b0e10] dark:text-gray-300 hover:text-primary transition-colors"
+                            href="user-profile.html">Profile</a>
+                    </nav>
+                    <button
+                        class="flex items-center justify-center rounded-lg h-9 px-4 bg-primary text-white text-sm font-bold shadow-md hover:bg-primary/90 transition-colors">
+                        <span class="material-symbols-outlined text-[20px] mr-2">person_add</span>
+                        <span>Invite</span>
+                    </button>
+                    <div class="size-10 rounded-full bg-cover bg-center border-2 border-white dark:border-gray-700 shadow-sm"
+                        data-alt="User profile picture showing a smiling person"
+                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAwmq7ugowaSMHIrBkCwH6b0S93QRmfMOA_IAR9MnJ5xLBYHjj6ZrSVyMqPrvNiahM-6J5F5QeVU2RjdkPJPib1JTk2GfDhJNuBPEN58lH_f89W2OSUiiC90hsmSnayQTPvXqWPvb6L4CkVZ7CPlDhj-FpfokBvL4tDbxo84FawzzGBnDbK0ns9bL6qdATTXcAWr6B2wFFy3ugjwj9-dfIQTV1_qJ96RGp7q2949c0GtFYM536KbBYcHPdubJTEgLRiRmiQloZuiJY");'>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Main Content Layout -->
+        <div class="flex-1 flex justify-center py-8 px-4 lg:px-10">
+            <div class="max-w-[1280px] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Left Column: Cart & Breakdown (8 cols) -->
+                <div class="lg:col-span-8 flex flex-col gap-8">
+                    <!-- Page Heading & Avatars -->
+                    <div
+                        class="flex flex-wrap justify-between items-end gap-4 bg-surface-light dark:bg-surface-dark p-6 rounded-xl border border-[#f3e7ea] dark:border-gray-800 shadow-sm">
+                        <div class="flex flex-col gap-2">
+                            <h1 class="text-3xl font-extrabold tracking-tight text-[#1b0e10] dark:text-white">Shared
+                                Cart</h1>
+                            <div class="flex items-center gap-2">
+                                <span class="relative flex h-3 w-3">
+                                    <span
+                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                                </span>
+                                <p class="text-[#994d5c] dark:text-gray-400 text-sm font-medium">4 People Active</p>
+                            </div>
+                        </div>
+                        <!-- Avatar Group -->
+                        <div class="flex items-center -space-x-3">
+                            <div class="relative group cursor-pointer">
+                                <div class="size-10 rounded-full border-2 border-white dark:border-gray-800 bg-cover bg-center shadow-sm"
+                                    data-alt="Avatar of Sarah"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCWOOEqxK_dQ3ai6vjXTuMJkLvUFpmwOOoZSKjEblbm-8a_wEPnKAcE5tCGsGPpYoBQsoZDohQLg6GC_GIy15BlqoR8KPKihTBlSLePpQXYQ2cKo7t4i_yHhEnEw5WfZ62jcP-7YgKpcNAp4Lpr1nQIX1TjA9B6ftuScMas4BtBSIyjbxSSJ7pWnR4FGN_YVeSDVtCPnnbF2myetWD8w93jC5SHlTDnMbnlRQwQlWvLMWp8jYg53y6AgEQYSUgWFqO2Nj2XulRy8kk");'>
+                                </div>
+                                <div
+                                    class="absolute -bottom-1 -right-1 bg-green-500 rounded-full p-0.5 border-2 border-white dark:border-gray-800">
+                                    <span class="material-symbols-outlined text-[10px] text-white font-bold">lock</span>
+                                </div>
+                                <div
+                                    class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                                    Sarah (Ready)</div>
+                            </div>
+                            <div class="relative group cursor-pointer">
+                                <div class="size-10 rounded-full border-2 border-white dark:border-gray-800 bg-cover bg-center shadow-sm"
+                                    data-alt="Avatar of Mike"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDghCMkrCHPfjERVwS2yrY3FCkubrT5pZfqErf_lpP_kwdxkJohJpKQ0tQxicBozbUMgClmaZgrYgTB8kjLWNc-Od5JP7HCyKprcJ3LQFqw8-S4ASsT0RJx2j74L0wkHyp7cH5TWE5z3h7u9hcs_prFRRqyFRbxBbwtSTcaN4KdBah_3kIk0RMukvgQcAE5A37XP9fbDYR4-iTIJx94c3hwXea7882yn8B-1LjQiJ-cuaUY05OLlzOEGomFqymPVVnMWzOto0VNqI4");'>
+                                </div>
+                                <div
+                                    class="absolute -bottom-1 -right-1 bg-amber-500 rounded-full size-3 border-2 border-white dark:border-gray-800">
+                                </div>
+                                <div
+                                    class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                                    Mike (Editing)</div>
+                            </div>
+                            <div class="relative group cursor-pointer">
+                                <div class="size-10 rounded-full border-2 border-white dark:border-gray-800 bg-cover bg-center shadow-sm"
+                                    data-alt="Avatar of Jessica"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAtrUa4Pf7hSMgPRyvlC376MPhUp61lQ4ht-6F799fbI36rfGKGEO2OCs8m34iE_xiTbv23MWyHIsOuy8GK-0vFaKJUvOXbK93Ba_O6mRdzFqgngZ7sT9V6UAHtKyUVdwxiG7FRV7Xc6Tml2F2JkP6pwon47Hq_KVDRACxmNqH8VlPK70n2Pa33tZjGxowmURCCJw984hWh7YK1dC_V9745b165Xo_h2ydnPIYubzoP8rG8KkUw3cxTgF-8Rmdzco398gvAlQ_HizE");'>
+                                </div>
+                                <div
+                                    class="absolute -bottom-1 -right-1 bg-amber-500 rounded-full size-3 border-2 border-white dark:border-gray-800">
+                                </div>
+                                <div
+                                    class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                                    Jessica (Editing)</div>
+                            </div>
+                            <div class="relative group cursor-pointer">
+                                <div class="size-10 rounded-full border-2 border-white dark:border-gray-800 bg-cover bg-center shadow-sm"
+                                    data-alt="Avatar of David"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBdP9ifnbFT4Tux_Xz4Co8MrvDqOwR-He-wr2YPZzb8eOTGzK6OdoiOfG_IvCgzRehEBa6kg9BZRAdFJJYPj8218-Z39lcngqO5-SsBRwZMJRMD78D3G_UCHIIC8jURnTLg2NcBPDCJF3JI6rRDWHpYd9NsVIbKCnePpn8avM3pscNNru9XYu7glWvNuUwpqvPweAlRWTVT8sT1otYd-qVbFpbGEJvccSo0-knclY18eN6vXLEGIx6dCzaKJAibifsGUqQYLjlAtts");'>
+                                </div>
+                                <div
+                                    class="absolute -bottom-1 -right-1 bg-amber-500 rounded-full size-3 border-2 border-white dark:border-gray-800">
+                                </div>
+                                <div
+                                    class="absolute bottom-full mb-2 hidden group-hover:block bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap">
+                                    David (Editing)</div>
+                            </div>
+                            <button
+                                class="flex items-center justify-center size-10 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-500 hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors border-2 border-white dark:border-gray-800 z-10">
+                                <span class="material-symbols-outlined">add</span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Cart Feed List -->
+                    <div class="flex flex-col gap-6">
+                        <!-- Sarah's Section (Locked) -->
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-center gap-2 px-1">
+                                <div class="size-6 rounded-full bg-cover bg-center" data-alt="Avatar of Sarah"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCKrnSZ-FbfSOVXurwt1-c8LsaR1_El5Ukt8MlMYoUXaQlvuRfYjT-j5833ebv5xb53lENT7QV5O8JEEg1IuooAzGfixiD5ZvLONgFa4IoA9MBb7OONOyYjlOlStvb4ETJsoaPYkIOkn4bN1PV9G3TNQYVmGX1uQ0v9ANO-lMpuSz9zuTnyCFP3K50hYfwYRvnSO79zWQAEWpxYHz-qIINSEXRx7e0xkqLOc08eyIEua77ZND7Ct9dTJRJxzYAvijCuAHaeA5_btQQ");'>
+                                </div>
+                                <h3 class="font-bold text-gray-700 dark:text-gray-200">Sarah's Picks</h3>
+                                <span
+                                    class="px-2 py-0.5 rounded-full bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 text-xs font-bold flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">lock</span> Locked
+                                </span>
+                            </div>
+                            <!-- Locked Item Card -->
+                            <div
+                                class="relative flex flex-col sm:flex-row items-center p-4 rounded-xl bg-white dark:bg-surface-dark border border-green-100 dark:border-green-900/30 shadow-sm overflow-hidden group">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-green-500"></div>
+                                <div class="flex-shrink-0 relative">
+                                    <div class="size-24 rounded-lg bg-cover bg-center"
+                                        data-alt="Delicious Spicy Tuna Roll with wasabi"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuADmSCdxsSqk3L1cZAPyTwMV_2MaZMGrNf0OkuLOlr7RupEW2Q0flbUakgE-kkzWQMlgOqsW4FkMnP9idOvqSTLCUaytaj6pX0RNwTywBXBl0p2Ysx-VLlvc0249C1oil4rJk0CZMt7ZsezTwrODMrNa5PCY-W01RgVwigKVGhbhT87RuaAVax09xL_dLr45nE-4GJDpmSZFCDMbPpNkKiv57WjNRN6W4L1mz6aB2dH4eV1oam7Twa7W8kKo6inMVGBmzy3amykays");'>
+                                    </div>
+                                    <div
+                                        class="absolute -top-2 -left-2 bg-green-500 text-white rounded-full p-1 shadow-sm border-2 border-white dark:border-surface-dark z-10">
+                                        <span
+                                            class="material-symbols-outlined text-[16px] block icon-filled">lock</span>
+                                    </div>
+                                </div>
+                                <div class="mt-4 sm:mt-0 sm:ml-5 flex-1 w-full text-center sm:text-left">
+                                    <div class="flex justify-between items-start w-full">
+                                        <h4 class="text-lg font-bold text-[#1b0e10] dark:text-white">Spicy Tuna Roll
+                                        </h4>
+                                        <span class="text-lg font-bold text-primary">$12.00</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Extra ginger, No spicy mayo
+                                        on side.</p>
+                                    <div class="mt-3 flex items-center justify-between sm:justify-start gap-4">
+                                        <div
+                                            class="inline-flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg px-3 py-1.5 opacity-60 cursor-not-allowed">
+                                            <span class="text-sm font-semibold text-gray-500">Qty: 1</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Mike's Section (Active) -->
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-center gap-2 px-1">
+                                <div class="size-6 rounded-full bg-cover bg-center" data-alt="Avatar of Mike"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBRFVLNI7gqrzM0SSHTD_TWLAltma_lxTG52XPAfbuVIRHimQ6UBtbFKBl3u1ZpdHYzUI1EaejZub1M-KJibofUejh6aLOj7EhCS32PHoVVk24223SY6Tbvt7c6oszcf2Bpb04dzC5wQa7btyLA3LE3ias-oSVZlz1gPCjIv7oHPAcH3ol-DvieLyIO88eX77djYNKti142xd40BJSZ_SOGdnx8_jxRRyucXQbAaEfRSiD51TeCLVAx_CPrPr96Mpst7d9YFWJUfko");'>
+                                </div>
+                                <h3 class="font-bold text-gray-700 dark:text-gray-200">Mike's Picks</h3>
+                                <span
+                                    class="px-2 py-0.5 rounded-full bg-amber-100 dark:bg-amber-900 text-amber-700 dark:text-amber-300 text-xs font-bold flex items-center gap-1">
+                                    Editing
+                                </span>
+                            </div>
+                            <!-- Active Item Card -->
+                            <div
+                                class="relative flex flex-col sm:flex-row items-center p-4 rounded-xl bg-white dark:bg-surface-dark border border-amber-100 dark:border-amber-900/30 shadow-sm overflow-hidden group">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-amber-400"></div>
+                                <div class="flex-shrink-0">
+                                    <div class="size-24 rounded-lg bg-cover bg-center"
+                                        data-alt="Crispy Chicken Katsu Curry with rice"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDXA9quH1rvmCfAXGyJO3tZeKA1tW5PJfJR-a0Fopv7dAkNqmm09f86fBlQQemcNaDhJm9D1C0bhESf1givTZQHG0svLjyMudVdpImScKf6uMq9lqSveNTgAFBFpfHLucf4nyn769vjWEk2MF_rExHG9to2Kte8y23OO68lPw2yt68hHdA7hhhM6Ye63oHpGdGVZptm6u4wIjaAVp1znDSsdxQ_bUhUPfkNZ6njqojuTYTP5pNUXDVTTUpbV3csCQA4gaCNhk8GMEw");'>
+                                    </div>
+                                </div>
+                                <div class="mt-4 sm:mt-0 sm:ml-5 flex-1 w-full">
+                                    <div class="flex justify-between items-start w-full">
+                                        <h4 class="text-lg font-bold text-[#1b0e10] dark:text-white">Chicken Katsu Curry
+                                        </h4>
+                                        <span class="text-lg font-bold text-primary">$14.50</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Brown rice substitution.
+                                    </p>
+                                    <div class="mt-3 flex flex-wrap items-center justify-between gap-4">
+                                        <div
+                                            class="inline-flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
+                                            <button
+                                                class="size-7 flex items-center justify-center bg-white dark:bg-gray-700 rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-colors">
+                                                <span class="material-symbols-outlined text-sm">remove</span>
+                                            </button>
+                                            <span class="w-8 text-center text-sm font-bold">1</span>
+                                            <button
+                                                class="size-7 flex items-center justify-center bg-white dark:bg-gray-700 rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 text-primary transition-colors">
+                                                <span class="material-symbols-outlined text-sm">add</span>
+                                            </button>
+                                        </div>
+                                        <button
+                                            class="text-xs font-medium text-gray-400 hover:text-red-500 flex items-center gap-1 transition-colors">
+                                            <span class="material-symbols-outlined text-sm">delete</span> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Jessica's Section (Active) -->
+                        <div class="flex flex-col gap-3">
+                            <div class="flex items-center gap-2 px-1">
+                                <div class="size-6 rounded-full bg-cover bg-center" data-alt="Avatar of Jessica"
+                                    style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC0D6UCp0lb-chIAUVi9RP3AgFklYeOscmpNdtFfCIzMuMK4gPAME-jncXglgrJY5FETe6QxhEnJx7gq9IUfiB85eMIBNGK_UnZjJMSBD1H22gMM7Pxv9voB3Mtx5zjjfOpV2RKLBFsOeAdRz_jqiJjHv0MENQm46k_Y9n0IutH-KdI7FOjXSigIhPxuKm_F3SRv9UTJHOQ6-DVqbg4_oCt2PzQestjxmo99olv97i4qHFt9KPuxMa_Cm2S4UaLElOF0M0fck8KGa0");'>
+                                </div>
+                                <h3 class="font-bold text-gray-700 dark:text-gray-200">Jessica's Picks</h3>
+                                <span
+                                    class="px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs font-bold flex items-center gap-1">
+                                    Editing
+                                </span>
+                            </div>
+                            <!-- Active Item Card -->
+                            <div
+                                class="relative flex flex-col sm:flex-row items-center p-4 rounded-xl bg-white dark:bg-surface-dark border border-blue-100 dark:border-blue-900/30 shadow-sm overflow-hidden group">
+                                <div class="absolute left-0 top-0 bottom-0 w-1 bg-blue-400"></div>
+                                <div class="flex-shrink-0">
+                                    <div class="size-24 rounded-lg bg-cover bg-center"
+                                        data-alt="Large Bento Box with variety of sushi"
+                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAAAv1-00DU2Z9AITnOwIohzmNd6qucwl3BM8HUsLAEHNaDOXo-JbGVWJZeTlm_XlAasPwBeckZfcr09Q3yEsdolpTsyD9ukog-R0X0OIjndH4oie78GGq0gng0pz6EqPipbXGWo5PFaSrtJXFx3bcNSti40FJrGjig6E26nruylTbj_rlLGSOMO7jNVrio0WSvbaFc6KxYPwA0B02XmB_vKQ0INVI2Wkx759i4kEpyqJTYv3WVFThPiI8ei6TB7Yy5dX4JOeSN4sU");'>
+                                    </div>
+                                </div>
+                                <div class="mt-4 sm:mt-0 sm:ml-5 flex-1 w-full">
+                                    <div class="flex justify-between items-start w-full">
+                                        <h4 class="text-lg font-bold text-[#1b0e10] dark:text-white">Deluxe Bento Box
+                                        </h4>
+                                        <span class="text-lg font-bold text-primary">$18.00</span>
+                                    </div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">No modifications.</p>
+                                    <div class="mt-3 flex flex-wrap items-center justify-between gap-4">
+                                        <div
+                                            class="inline-flex items-center bg-gray-100 dark:bg-gray-800 rounded-lg p-1 border border-gray-200 dark:border-gray-700">
+                                            <button
+                                                class="size-7 flex items-center justify-center bg-white dark:bg-gray-700 rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-600 dark:text-gray-300 transition-colors">
+                                                <span class="material-symbols-outlined text-sm">remove</span>
+                                            </button>
+                                            <span class="w-8 text-center text-sm font-bold">1</span>
+                                            <button
+                                                class="size-7 flex items-center justify-center bg-white dark:bg-gray-700 rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 text-primary transition-colors">
+                                                <span class="material-symbols-outlined text-sm">add</span>
+                                            </button>
+                                        </div>
+                                        <button
+                                            class="text-xs font-medium text-gray-400 hover:text-red-500 flex items-center gap-1 transition-colors">
+                                            <span class="material-symbols-outlined text-sm">delete</span> Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Cost Splitter Breakdown -->
+                    <div class="mt-4">
+                        <h3 class="text-xl font-bold mb-4 flex items-center gap-2 text-[#1b0e10] dark:text-white">
+                            <span class="material-symbols-outlined text-primary">receipt_long</span>
+                            Cost Breakdown
+                        </h3>
+                        <div
+                            class="overflow-hidden rounded-xl border border-[#e7d0d4] dark:border-gray-700 bg-white dark:bg-surface-dark shadow-sm">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr
+                                            class="bg-gray-50 dark:bg-gray-800 border-b border-[#e7d0d4] dark:border-gray-700">
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                                User</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                                Subtotal</th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                                                <div class="flex flex-col">
+                                                    <span>Delivery Share</span>
+                                                    <span
+                                                        class="text-[10px] normal-case font-normal text-gray-400">($5.00
+                                                        ÷ 4)</span>
+                                                </div>
+                                            </th>
+                                            <th
+                                                class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400 text-right">
+                                                Total Owed</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-[#e7d0d4] dark:divide-gray-700">
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="size-8 rounded-full bg-cover bg-center border border-gray-200"
+                                                        data-alt="Avatar of Sarah"
+                                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA2zACW4sogLpJBhzTmIB6QTtjZQtGsFCmRGWdpwqHyxVVfztBWUksJuv6j3Oy5l8xtNhIe3E-2E-A9wRzrAnwKJAsp3YbHpHjinz9aHpB4AMf0tqDm_Mj1kHSDHTNh44Zs0eID4HcAymOFf_OvC-eJ9gFW2ArfyWmlYHT_pudbP_AvqNcxIhFpY7_yWBQ1wcM31TBfmk2qu-bqtUUtWfQfs8Z9nFTU11DkUXYAkIT90P0xWvqfdtoxWinEYU5tHwKhj4VV7ywAldM");'>
+                                                    </div>
+                                                    <span
+                                                        class="font-medium text-[#1b0e10] dark:text-white">Sarah</span>
+                                                    <span
+                                                        class="ml-2 material-symbols-outlined text-[16px] text-green-500 icon-filled"
+                                                        title="Locked">lock</span>
+                                                </div>
+                                            </td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                                $12.00</td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                                $1.25</td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#1b0e10] dark:text-white font-mono text-right">
+                                                $13.25</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="size-8 rounded-full bg-cover bg-center border border-gray-200"
+                                                        data-alt="Avatar of Mike"
+                                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDDpSIcSIfxlA-Zyrf0dNVFn52anoGUyuyUkpKhVpGsxDkCTPvT3ggSB23gvAlmFPBBQIOumB0RYpFy4RaDsaSBJkmCfU-DXvOQ18pQ7U_iSKYLdw-Jx2SgBvN7azuS7rMSaTKTuMDsLmpkVZGbQsDc4-rFUuge9ISbD3uCesmF1dgps_R7xrXRvp6M79BEO65-KFKdi0A2pQx1S5TZ1vTg0WLCi-EgEAh16bJjQKwapqnaOclJYBkDXKB9cjSxHMIUMrcBjiMUsH4");'>
+                                                    </div>
+                                                    <span class="font-medium text-[#1b0e10] dark:text-white">Mike</span>
+                                                </div>
+                                            </td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                                $14.50</td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                                $1.25</td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#1b0e10] dark:text-white font-mono text-right">
+                                                $15.75</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="size-8 rounded-full bg-cover bg-center border border-gray-200"
+                                                        data-alt="Avatar of Jessica"
+                                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBfwW5JCvmtn8xR3Jr-qcfbgkyX0v2wGKglwjoQrc0YxDQyDkAGUslduRzbTgIWUHMXk1Bj1kVQ922zgiF6VnCnPcg2SO05-waPbMTvDvf_U8Iyvjrjx3-O5-z51P-TdUGb5MXnxyG8gDcFQyYZBkXLgpDsqrB-vCAA4WjtuLz6rK0qPC27N4NTxX-wEtu9bAOwY-ApN2uJM1vQ8o_L3zksqPXizVavHTgqBg-qkG9fV00qg1oHSOy6T83Lr1LVmaxdNThXBJUJ91Q");'>
+                                                    </div>
+                                                    <span
+                                                        class="font-medium text-[#1b0e10] dark:text-white">Jessica</span>
+                                                </div>
+                                            </td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                                $18.00</td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                                $1.25</td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#1b0e10] dark:text-white font-mono text-right">
+                                                $19.25</td>
+                                        </tr>
+                                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+                                            <td class="px-6 py-4 whitespace-nowrap">
+                                                <div class="flex items-center gap-3">
+                                                    <div class="size-8 rounded-full bg-cover bg-center border border-gray-200"
+                                                        data-alt="Avatar of David"
+                                                        style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBXeJQs3nyGUuMjV3xb9f-JAPgJpjHdX0P_Qd99MlFXO7p5gsjJYkYm1UUyy56pcZfwsNtLL9D40AkN3MuP5OQcSeSifwpvu2cEv1uhvOLkcB6cH1XRbsJBXwQ5udSvU87uZcpyQ2P20zwVpjJ4rW5E1V7DFBEzRzvY6VCC_0mfSeyAzROPhXfp6VLrmznTudP_k2qUdVNCHonRKQvqDCUGjXIzbA-BK3ohmpSAmigvkiiUC8-9UyiyMvDD76K5BWFqJfHVBYuKS1M");'>
+                                                    </div>
+                                                    <span
+                                                        class="font-medium text-[#1b0e10] dark:text-white">David</span>
+                                                </div>
+                                            </td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                                $10.00</td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300 font-mono">
+                                                $1.25</td>
+                                            <td
+                                                class="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#1b0e10] dark:text-white font-mono text-right">
+                                                $11.25</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: Sticky Summary (4 cols) -->
+                <div class="lg:col-span-4 sticky top-24">
+                    <div
+                        class="bg-surface-light dark:bg-surface-dark rounded-xl border border-[#f3e7ea] dark:border-gray-800 shadow-lg p-6 flex flex-col gap-6">
+                        <div class="flex flex-col gap-1">
+                            <h3 class="text-xl font-bold text-[#1b0e10] dark:text-white">Order Summary</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Order from <span
+                                    class="font-semibold text-primary">Tokyo Sushi House</span></p>
+                        </div>
+                        <!-- Mini breakdown -->
+                        <div
+                            class="flex flex-col gap-3 pb-6 border-b border-dashed border-gray-200 dark:border-gray-700">
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-600 dark:text-gray-300">Item Subtotal</span>
+                                <span class="font-medium text-[#1b0e10] dark:text-white">$54.50</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-600 dark:text-gray-300">Delivery Fee</span>
+                                <span class="font-medium text-[#1b0e10] dark:text-white">$5.00</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm">
+                                <span class="text-gray-600 dark:text-gray-300">Service &amp; Taxes</span>
+                                <span class="font-medium text-[#1b0e10] dark:text-white">$8.20</span>
+                            </div>
+                        </div>
+                        <!-- Total -->
+                        <div class="flex justify-between items-end">
+                            <span class="text-base font-bold text-gray-500 dark:text-gray-400">Group Total</span>
+                            <span class="text-3xl font-extrabold text-[#1b0e10] dark:text-white">$67.70</span>
+                        </div>
+                        <!-- Action Area -->
+                        <div class="flex flex-col gap-3">
+                            <button
+                                class="group relative flex w-full cursor-not-allowed items-center justify-center overflow-hidden rounded-lg h-12 px-4 bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-base font-bold leading-normal transition-all"
+                                disabled="">
+                                <span class="material-symbols-outlined mr-2">lock_clock</span>
+                                <span class="truncate">Place Group Order</span>
+                            </button>
+                            <!-- Status Message -->
+                            <div class="bg-amber-50 dark:bg-amber-900/20 rounded-lg p-3 flex items-start gap-2">
+                                <span
+                                    class="material-symbols-outlined text-amber-600 dark:text-amber-500 text-sm mt-0.5">info</span>
+                                <p class="text-xs text-amber-800 dark:text-amber-200 leading-snug">
+                                    <strong>Waiting for 3 people to lock their orders.</strong> The group order cannot
+                                    be placed until everyone confirms their selection.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- My Personal Lock Toggle -->
+                        <div class="mt-2 pt-6 border-t border-gray-100 dark:border-gray-800">
+                            <label class="flex items-center justify-between cursor-pointer group">
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-sm text-[#1b0e10] dark:text-white">Lock my order</span>
+                                    <span
+                                        class="text-xs text-gray-500 dark:text-gray-400 group-hover:text-primary transition-colors">I'm
+                                        done adding items</span>
+                                </div>
+                                <div class="relative">
+                                    <input class="sr-only peer" type="checkbox" />
+                                    <div
+                                        class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

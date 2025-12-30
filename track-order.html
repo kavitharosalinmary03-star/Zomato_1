@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Hyper-Track Order Status</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#db143c",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#211114",
+                        "card-light": "#ffffff",
+                        "card-dark": "#2a1d20",
+                        "text-main-light": "#1b0e10",
+                        "text-main-dark": "#f8f6f6",
+                        "text-sub-light": "#994d5c",
+                        "text-sub-dark": "#cf8da0",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'glow': '0 0 15px rgba(219, 20, 60, 0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Plus Jakarta Sans", sans-serif;
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
+
+        .pulse-ring {
+            box-shadow: 0 0 0 0 rgba(219, 20, 60, 0.7);
+            animation: pulse-red 2s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(219, 20, 60, 0.7);
+            }
+
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(219, 20, 60, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(219, 20, 60, 0);
+            }
+        }
+
+        .progress-line-active {
+            background: linear-gradient(180deg, #db143c 0%, #ff4d6d 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col transition-colors duration-300">
+    <!-- Header -->
+    <header
+        class="sticky top-0 z-50 bg-card-light/90 dark:bg-card-dark/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 transition-colors">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="size-8 text-primary flex items-center justify-center bg-primary/10 rounded-lg">
+                        <span class="material-symbols-outlined text-[28px]">local_fire_department</span>
+                    </div>
+                    <h1 class="text-text-main-light dark:text-text-main-dark text-xl font-bold tracking-tight">
+                        Hyper-Track</h1>
+                </div>
+                <!-- Search -->
+                <div class="hidden md:flex flex-1 max-w-md mx-8">
+                    <div class="relative w-full group">
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-sub-light dark:text-text-sub-dark group-focus-within:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">search</span>
+                        </div>
+                        <input
+                            class="block w-full pl-10 pr-3 py-2 border-none rounded-xl leading-5 bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark placeholder-text-sub-light/50 focus:outline-none focus:ring-2 focus:ring-primary/20 sm:text-sm transition-all"
+                            placeholder="Search orders, dishes..." type="text" />
+                    </div>
+                </div>
+                <!-- Right Nav -->
+                <div class="flex items-center gap-6">
+                    <nav class="hidden md:flex gap-6">
+                        <a class="text-sm font-medium text-text-main-light dark:text-text-main-dark hover:text-primary transition-colors"
+                            href="index.html">Home</a>
+                        <a class="text-sm font-medium text-text-main-light dark:text-text-main-dark hover:text-primary transition-colors"
+                            href="discovery.html">Discovery</a>
+                        <a class="text-sm font-medium text-text-main-light dark:text-text-main-dark hover:text-primary transition-colors"
+                            href="track-order.html">Orders</a>
+                        <a class="text-sm font-medium text-text-sub-light dark:text-text-sub-dark hover:text-primary transition-colors"
+                            href="user-profile.html">Profile</a>
+                    </nav>
+                    <div class="flex items-center gap-3 pl-2 border-l border-gray-100 dark:border-gray-800">
+                        <button
+                            class="relative p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 text-text-main-light dark:text-text-main-dark transition-colors">
+                            <span class="material-symbols-outlined text-[24px]">notifications</span>
+                            <span
+                                class="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-white dark:border-card-dark"></span>
+                        </button>
+                        <div class="size-9 rounded-full bg-cover bg-center border-2 border-gray-100 dark:border-gray-700 cursor-pointer hover:border-primary transition-colors"
+                            data-alt="User profile avatar showing a smiling person"
+                            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDFW1e1e7ufLdyJjEjQGHAdLf5KVxO22IiW0_hjIapi2Cb5bgwH-JhYdHa_NeAeXB5U5IcRHKiqRnSivk_0mNiKHKIgerV3ulQ3gfAYhVFbpC5duUqA69w3NFO7IYTPPWh4Ol8wla26AKdGkSXBHaaeLcb1tNxBv38dBPLE9n6eHA22QmQ6QkiNoqGD5LdizBW57-xluSSl7lM0kTgcTDFczLlOJ1FKhvzadnAhbZFYXvYsA4ejstfXjcgFgwpaQi0ei5CZxvDCR1E');">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Page Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 animate-[fadeIn_0.5s_ease-out]">
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span
+                        class="px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wider">Cooking</span>
+                    <span class="text-text-sub-light dark:text-text-sub-dark text-sm">#2491-AB</span>
+                </div>
+                <h2
+                    class="text-3xl md:text-4xl font-extrabold text-text-main-light dark:text-text-main-dark tracking-tight">
+                    Order is in the works!
+                </h2>
+                <p class="text-text-sub-light dark:text-text-sub-dark mt-2 text-lg">
+                    Estimated Arrival: <span class="font-bold text-text-main-light dark:text-text-main-dark">12:45
+                        PM</span>
+                </p>
+            </div>
+            <button
+                class="flex items-center justify-center gap-2 px-6 py-3 bg-white dark:bg-card-dark text-text-main-light dark:text-text-main-dark border border-gray-200 dark:border-gray-700 rounded-xl font-semibold shadow-sm hover:shadow-md hover:border-primary/50 transition-all">
+                <span class="material-symbols-outlined text-[20px]">receipt_long</span>
+                View Receipt
+            </button>
+        </div>
+        <!-- Grid Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left Column: Timeline & Map (8 cols) -->
+            <div class="lg:col-span-8 flex flex-col gap-6">
+                <!-- Main Status Card -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-2xl shadow-soft p-6 lg:p-8 border border-gray-100 dark:border-gray-800">
+                    <div class="grid md:grid-cols-[1fr_280px] gap-8">
+                        <!-- Vertical Timeline -->
+                        <div class="relative">
+                            <!-- Track Background -->
+                            <div class="absolute left-[19px] top-4 bottom-4 w-[2px] bg-gray-100 dark:bg-gray-800"></div>
+                            <!-- Steps -->
+                            <div class="flex flex-col gap-8 relative z-10">
+                                <!-- Step 1: Completed -->
+                                <div class="flex gap-4 group">
+                                    <div class="flex flex-col items-center">
+                                        <div
+                                            class="size-10 rounded-full bg-green-500 text-white flex items-center justify-center shadow-lg shadow-green-500/20">
+                                            <span class="material-symbols-outlined text-[20px]">check</span>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2">
+                                        <h4 class="text-base font-bold text-text-main-light dark:text-text-main-dark">
+                                            Order Confirmed</h4>
+                                        <p class="text-sm text-text-sub-light dark:text-text-sub-dark">12:10 PM</p>
+                                    </div>
+                                </div>
+                                <!-- Step 2: Active -->
+                                <div class="flex gap-4">
+                                    <div class="flex flex-col items-center relative">
+                                        <!-- Active Line Segment -->
+                                        <div class="absolute -top-8 bottom-0 w-[2px] progress-line-active -z-10 h-20">
+                                        </div>
+                                        <div
+                                            class="size-10 rounded-full bg-primary text-white flex items-center justify-center pulse-ring shadow-glow z-20">
+                                            <span
+                                                class="material-symbols-outlined text-[20px] animate-bounce">skillet</span>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2">
+                                        <h4 class="text-lg font-bold text-primary">Chef is working magic</h4>
+                                        <p class="text-sm text-text-sub-light dark:text-text-sub-dark">Preparing your
+                                            meal with care.</p>
+                                        <!-- Chef Animation Placeholder -->
+                                        <div
+                                            class="mt-4 p-4 bg-background-light dark:bg-background-dark rounded-xl border border-gray-100 dark:border-gray-800 flex items-center gap-4">
+                                            <div
+                                                class="size-16 rounded-lg bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+                                                <span class="material-symbols-outlined text-[32px]">soup_kitchen</span>
+                                            </div>
+                                            <div>
+                                                <p
+                                                    class="text-sm font-medium text-text-main-light dark:text-text-main-dark">
+                                                    Chef Marco is on it!</p>
+                                                <div
+                                                    class="w-32 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mt-2 overflow-hidden">
+                                                    <div
+                                                        class="h-full bg-primary w-2/3 rounded-full animate-[shimmer_2s_infinite]">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Step 3: Pending -->
+                                <div class="flex gap-4 opacity-50">
+                                    <div class="flex flex-col items-center">
+                                        <div
+                                            class="size-10 rounded-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-400 flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-[20px]">two_wheeler</span>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2">
+                                        <h4 class="text-base font-medium text-text-main-light dark:text-text-main-dark">
+                                            Out for Delivery</h4>
+                                        <p class="text-sm text-text-sub-light dark:text-text-sub-dark">Pending</p>
+                                    </div>
+                                </div>
+                                <!-- Step 4: Pending -->
+                                <div class="flex gap-4 opacity-50">
+                                    <div class="flex flex-col items-center">
+                                        <div
+                                            class="size-10 rounded-full bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 text-gray-400 flex items-center justify-center">
+                                            <span class="material-symbols-outlined text-[20px]">home_pin</span>
+                                        </div>
+                                    </div>
+                                    <div class="pt-2">
+                                        <h4 class="text-base font-medium text-text-main-light dark:text-text-main-dark">
+                                            Arrived</h4>
+                                        <p class="text-sm text-text-sub-light dark:text-text-sub-dark">Pending</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Right Side of Card: Map Preview -->
+                        <div class="hidden md:block">
+                            <div
+                                class="h-full min-h-[300px] w-full bg-gray-200 dark:bg-gray-800 rounded-xl overflow-hidden relative shadow-inner">
+                                <div class="absolute inset-0 bg-cover bg-center opacity-80"
+                                    data-location="New York City map view"
+                                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6aLPzYoINW9LDE1ep_52bEiE9bDMSQnoHAOliYgQ5S1LnAiQ7uXdzIpPoyqaIFauM-eBt4jmZc2CYEcH8ER2_Fm5fehh5eKI2I2QMtq8NvQVnRV8-wIkCF6VxqwZfwP0PpN8HjSfy4WgB4YdCoQouMrDLeXZCF-HBSzS0JT742s7F0GAHakm8STFxxf1jWaw1WcSSt3SAiTIiZud1oiuWnnUnJaQ-M2F2LX7Pw3LfEsN1BhUtouJTgxN_-QDcEBghHExCYLoOrmc');">
+                                </div>
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-card-light dark:from-card-dark via-transparent to-transparent">
+                                </div>
+                                <div
+                                    class="absolute bottom-4 left-4 right-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur p-3 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="size-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                                            <span class="material-symbols-outlined">navigation</span>
+                                        </div>
+                                        <div>
+                                            <p
+                                                class="text-xs text-text-sub-light dark:text-text-sub-dark font-medium uppercase">
+                                                Destination</p>
+                                            <p
+                                                class="text-sm font-bold text-text-main-light dark:text-text-main-dark truncate">
+                                                1248 W 4th St, Apt 2B</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Driver Details (Future State Preview / Ghost Card) -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-xl p-4 border border-gray-100 dark:border-gray-800 flex items-center justify-between opacity-60 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-pointer group">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="size-12 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center overflow-hidden">
+                            <span class="material-symbols-outlined text-gray-400">person</span>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-text-main-light dark:text-text-main-dark">Rider Details</p>
+                            <p class="text-xs text-text-sub-light dark:text-text-sub-dark">Will be available once
+                                dispatched</p>
+                        </div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-gray-300 group-hover:text-primary transition-colors">chevron_right</span>
+                </div>
+            </div>
+            <!-- Right Column: Entertainment & Support (4 cols) -->
+            <div class="lg:col-span-4 flex flex-col gap-6">
+                <!-- While you wait Card -->
+                <div
+                    class="bg-gradient-to-br from-indigo-900 to-purple-900 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden group">
+                    <!-- Decorative background elements -->
+                    <div
+                        class="absolute top-0 right-0 -mr-8 -mt-8 size-32 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all duration-700">
+                    </div>
+                    <div class="absolute bottom-0 left-0 -ml-8 -mb-8 size-24 bg-primary/40 rounded-full blur-xl"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-bold flex items-center gap-2">
+                                <span class="material-symbols-outlined text-yellow-300">videogame_asset</span>
+                                While you wait
+                            </h3>
+                            <span class="bg-white/20 px-2 py-0.5 rounded text-xs font-medium backdrop-blur-sm">Level
+                                3</span>
+                        </div>
+                        <p class="text-indigo-100 text-sm mb-6">Answer quick trivia to earn points for your next order!
+                        </p>
+                        <div class="bg-white/10 backdrop-blur-md rounded-xl p-4 border border-white/10">
+                            <p class="font-medium text-base mb-4 text-center">Where was the modern pizza invented?</p>
+                            <div class="flex flex-col gap-2">
+                                <button
+                                    class="w-full py-2 px-3 bg-white/5 hover:bg-white/20 rounded-lg text-sm text-left transition-colors flex justify-between items-center group/btn">
+                                    <span>A. New York, USA</span>
+                                    <div
+                                        class="size-4 rounded-full border border-white/30 group-hover/btn:border-white group-hover/btn:bg-white/20">
+                                    </div>
+                                </button>
+                                <button
+                                    class="w-full py-2 px-3 bg-white/5 hover:bg-primary rounded-lg text-sm text-left transition-colors flex justify-between items-center group/btn border border-transparent hover:border-primary-light">
+                                    <span>B. Naples, Italy</span>
+                                    <div
+                                        class="size-4 rounded-full border border-white/30 group-hover/btn:border-white group-hover/btn:bg-white">
+                                    </div>
+                                </button>
+                                <button
+                                    class="w-full py-2 px-3 bg-white/5 hover:bg-white/20 rounded-lg text-sm text-left transition-colors flex justify-between items-center group/btn">
+                                    <span>C. Rome, Italy</span>
+                                    <div
+                                        class="size-4 rounded-full border border-white/30 group-hover/btn:border-white group-hover/btn:bg-white/20">
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Support / Help -->
+                <div
+                    class="bg-card-light dark:bg-card-dark rounded-2xl shadow-soft p-6 border border-gray-100 dark:border-gray-800">
+                    <h3 class="font-bold text-text-main-light dark:text-text-main-dark mb-4">Need help with your order?
+                    </h3>
+                    <div class="flex flex-col gap-3">
+                        <button
+                            class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-background-light dark:hover:bg-background-dark transition-colors text-left group">
+                            <div
+                                class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-text-main-light dark:text-text-main-dark">Chat with
+                                    Support</p>
+                                <p class="text-xs text-text-sub-light dark:text-text-sub-dark">Average wait: 2 min</p>
+                            </div>
+                        </button>
+                        <div class="h-px bg-gray-100 dark:bg-gray-800 w-full my-1"></div>
+                        <button
+                            class="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-background-light dark:hover:bg-background-dark transition-colors text-left group">
+                            <div
+                                class="size-10 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <span class="material-symbols-outlined text-[20px]">help</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-text-main-light dark:text-text-main-dark">FAQs</p>
+                                <p class="text-xs text-text-sub-light dark:text-text-sub-dark">Common delivery questions
+                                </p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Floating Action Button for Chat -->
+    <div class="fixed bottom-8 right-8 z-50">
+        <button
+            class="group flex items-center gap-2 bg-primary text-white pl-4 pr-5 py-3 rounded-full shadow-lg shadow-primary/30 hover:bg-red-700 hover:shadow-primary/50 transition-all transform hover:-translate-y-1">
+            <span class="material-symbols-outlined text-[24px]">support_agent</span>
+            <span class="font-bold text-sm">Live Chat</span>
+            <span class="absolute top-0 right-0 -mt-1 -mr-1 flex h-3 w-3">
+                <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+        </button>
+    </div>
+</body>
+
+</html>

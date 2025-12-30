@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>FoodieHub - Community Reviews</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#db143c",
+                        "primary-hover": "#b91032",
+                        "background-light": "#fcf8f9",
+                        "background-dark": "#211114",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#2d1a1e",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"],
+                        "heading": ["Playfair Display", "serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e5e7eb;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d1d5db;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#1b0e10] dark:text-[#f3e7ea] font-display antialiased overflow-x-hidden min-h-screen flex flex-col">
+<!-- Navbar -->
+<div class="sticky top-0 z-50 w-full bg-surface-light dark:bg-surface-dark border-b border-[#f3e7ea] dark:border-[#3d2b2f] shadow-sm">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<header class="flex items-center justify-between h-16 gap-4">
+<!-- Logo -->
+<div class="flex items-center gap-3 shrink-0">
+<div class="size-8 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z"></path>
+</svg>
+</div>
+<h2 class="text-2xl font-bold font-heading tracking-tight text-gray-900 dark:text-white hidden sm:block">FoodieHub</h2>
+</div>
+<!-- Search -->
+<div class="hidden md:flex max-w-md w-full mx-4">
+<div class="relative w-full">
+<div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+<span class="material-symbols-outlined text-gray-400 text-[20px]">search</span>
+</div>
+<input class="block w-full pl-10 pr-3 py-2 border border-gray-200 dark:border-gray-700 rounded-lg leading-5 bg-gray-50 dark:bg-gray-800 placeholder-gray-500 focus:outline-none focus:bg-white focus:ring-1 focus:ring-primary focus:border-primary sm:text-sm transition duration-150 ease-in-out" placeholder="Search dishes, restaurants, or foodies..." type="text"/>
+</div>
+</div>
+<!-- Nav Links & Actions -->
+<div class="flex items-center gap-4 sm:gap-6">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Feed</a>
+<a class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors" href="#">Restaurants</a>
+<a class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors" href="#">Community</a>
+</nav>
+<div class="flex items-center gap-3">
+<button class="hidden sm:flex items-center justify-center gap-2 bg-primary hover:bg-primary-hover text-white px-4 py-2 rounded-lg text-sm font-bold transition-all shadow-md hover:shadow-lg">
+<span class="material-symbols-outlined text-[20px]">videocam</span>
+<span>Upload Bite</span>
+</button>
+<button class="relative p-2 text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-1.5 right-1.5 size-2 bg-primary rounded-full border-2 border-white dark:border-gray-900"></span>
+</button>
+<div class="size-9 rounded-full bg-gray-200 overflow-hidden cursor-pointer border border-gray-200 dark:border-gray-700" data-alt="User profile avatar placeholder">
+<img alt="Profile" class="size-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJUm23wwOWeAv4ZsxwcQ4QNVp07v-KYQavVjIpA3p5sQAJU4Wx0l7D3fkaN0qDmjpPXrqwYZqsjbrQ5BgQITnsK2MqVKtYykScS4RKBbzz6sorhXmk2PQtBB3KG0TVpaj1cyCKRFkfF5PVkMub8jNMd6OXVPFb1n7hfxTtN0yggtmWKWM6Em8Kofo5S5QJ_J151bIrJ1vteneGDzfbw27EpqksMss-vRBEycYDHpl0hC2UXtF4nwD6KN8dL2RKtmiLQAFPy60mMTk"/>
+</div>
+</div>
+</div>
+</header>
+</div>
+</div>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Feed (8 cols) -->
+<div class="lg:col-span-8 flex flex-col gap-8">
+<!-- Hero / Upload CTA -->
+<section class="relative overflow-hidden rounded-xl bg-gradient-to-r from-gray-900 to-gray-800 shadow-xl" data-alt="Dark gradient background with food texture overlay">
+<div class="absolute inset-0 opacity-40 bg-[url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&amp;w=2070&amp;auto=format&amp;fit=crop')] bg-cover bg-center mix-blend-overlay"></div>
+<div class="relative p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex-1 text-center md:text-left">
+<h1 class="font-heading text-3xl md:text-4xl font-bold text-white mb-2 leading-tight">Share your bite</h1>
+<p class="text-gray-300 text-sm md:text-base max-w-md">Upload a 10-second clip of your meal and help the community decide where to eat next. Earn helpfulness points!</p>
+</div>
+<button class="shrink-0 flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-lg font-bold hover:bg-gray-50 transition-colors shadow-lg group">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">fiber_manual_record</span>
+<span>Start Recording</span>
+</button>
+</div>
+</section>
+<!-- Filter Tabs -->
+<div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
+<button class="px-4 py-2 rounded-full bg-gray-900 text-white text-sm font-semibold whitespace-nowrap shadow-sm dark:bg-white dark:text-gray-900">Following</button>
+<button class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-medium whitespace-nowrap transition-colors dark:bg-surface-dark dark:border-gray-700 dark:text-gray-300">Trending in New York</button>
+<button class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-medium whitespace-nowrap transition-colors dark:bg-surface-dark dark:border-gray-700 dark:text-gray-300">Cheap Eats</button>
+<button class="px-4 py-2 rounded-full bg-white border border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 text-sm font-medium whitespace-nowrap transition-colors dark:bg-surface-dark dark:border-gray-700 dark:text-gray-300">Fine Dining</button>
+</div>
+<!-- Review Feed -->
+<div class="flex flex-col gap-6">
+<!-- Card 1 -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+<div class="p-4 flex items-center justify-between border-b border-gray-50 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="User Avatar" class="size-10 rounded-full object-cover border border-gray-100" data-alt="Avatar of user Sarah" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2H_2w6fyYqG0oQ5cmkVDo_l0qlMbbV5xdj7BQiSc3cBSYE1Sa9nZ8GT2U9rRGZKyqs1oxyTFhXoOsBU3sgvJK6ukv9nB3RammIYbyjMACsZ2OOtVuI_1eQMXDsh8Gh1YdmCAAby3Z_TXd19JARmc_0xbuYCzxjY1jetT9yhoOsArGPZ8yH3RAZgrEKTbOgCb5z7KLYIgAXDaK6CLUCiOMxDoAezulks2QaaNWXTwCrc06mzuyHHmb_YOIwGSWo9sFpL8vSBUsxMA"/>
+<div class="absolute -bottom-1 -right-1 bg-yellow-400 text-[10px] font-bold px-1.5 py-0.5 rounded-full text-yellow-900 shadow-sm border border-white">Lvl 12</div>
+</div>
+<div>
+<h3 class="text-sm font-bold text-gray-900 dark:text-white leading-tight">Sarah Eats</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">2 hours ago • New York, NY</p>
+</div>
+</div>
+<button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="relative group aspect-video bg-black cursor-pointer">
+<img alt="Delicious truffle pasta dish" class="w-full h-full object-cover opacity-90 group-hover:opacity-75 transition-opacity" data-alt="Close up of creamy truffle pasta with mushrooms" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANQtEcK18p5CjBt6iC8IChW8J115ShoLQMGX7RsgEwkahCX-blI0yob6VaTotQf_mklH-2wozVVCooK15YmlHH8MAUZPLbYQgi0XSfH-kDXcZ211w4CZhevp5euYPWRN6n719k2wV0qiclT7rzpsOFIg9G9hedhBYQQzGtO2mYdv0i8sOnvNwW9ogv4DRWCtwXKiixLkAcNbpY4tQnsuWb_c-8iohB6Mqv069WCBCT1CvMEHYg5e80Ksl2rzsh0mZbYCFz_Vx8IkM"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="size-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-white/30 shadow-xl">
+<span class="material-symbols-outlined text-white text-4xl ml-1">play_arrow</span>
+</div>
+</div>
+<div class="absolute bottom-3 right-3 bg-black/60 px-2 py-1 rounded text-xs font-bold text-white backdrop-blur-sm">0:14</div>
+</div>
+<div class="p-5">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div>
+<h2 class="font-heading text-xl font-bold text-gray-900 dark:text-white mb-1">Hidden Gem for Truffle Pasta! 🍝</h2>
+<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">Absolutely blown away by the handmade pasta here. The truffle sauce is rich but not overpowering. Must try the Tiramisu as well!</p>
+</div>
+<div class="flex flex-col items-center bg-gray-50 dark:bg-gray-800/50 rounded-lg p-1 border border-gray-100 dark:border-gray-700 shrink-0 min-w-[60px]">
+<button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-gray-400 hover:text-primary transition-colors w-full flex justify-center group/up">
+<span class="material-symbols-outlined group-hover/up:fill-1 text-[24px]">keyboard_arrow_up</span>
+</button>
+<span class="text-sm font-bold text-primary my-1">456</span>
+<button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-gray-400 hover:text-red-800 transition-colors w-full flex justify-center">
+<span class="material-symbols-outlined text-[24px]">keyboard_arrow_down</span>
+</button>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 pt-3 border-t border-gray-100 dark:border-gray-800 mt-2">
+<a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-100 transition-colors text-xs font-bold dark:bg-orange-900/20 dark:text-orange-300 dark:border-orange-900/30" href="#">
+<span class="material-symbols-outlined text-[16px]">restaurant</span>
+                                    Luigi's Trattoria
+                                </a>
+<div class="flex items-center gap-1 text-xs text-gray-500 font-medium">
+<span class="material-symbols-outlined text-[16px] text-yellow-500 fill-1">star</span>
+                                    4.8/5 Rating
+                                </div>
+<div class="flex-1"></div>
+<button class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 flex items-center gap-1 text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+                                    24 Comments
+                                </button>
+<button class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 flex items-center gap-1 text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+                                    Share
+                                </button>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-md transition-shadow duration-300 overflow-hidden">
+<div class="p-4 flex items-center justify-between border-b border-gray-50 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="relative">
+<img alt="User Avatar" class="size-10 rounded-full object-cover border border-gray-100" data-alt="Avatar of user Mike" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDq3nQtxKZGiP8J8RK5D3AQNtSMOdDzTGWKGtsLLOojo_kBtw4A451bsUtJkyUHTF455akdtF6py3eRxC_Ru3Bbk66oIgT4-kmQhDB61KH2ckE4ZYlEoZA_jt8JFqXJv0llsoe8e6Py9_je7Z9C88V1JDXRcug_qFZ0_H6NZCauSQuKZdZwtlGthel6WJd64KvN01-gs90qo6SS4jPPu-PO2zBrghtBdkNodKUmpxHg0NhDw6hiD3DZKANHM5v-pfiHB0g4E3bsoYc"/>
+<div class="absolute -bottom-1 -right-1 bg-gray-400 text-[10px] font-bold px-1.5 py-0.5 rounded-full text-white shadow-sm border border-white">Lvl 5</div>
+</div>
+<div>
+<h3 class="text-sm font-bold text-gray-900 dark:text-white leading-tight">MikeBites</h3>
+<p class="text-xs text-gray-500 dark:text-gray-400">5 hours ago • Brooklyn, NY</p>
+</div>
+</div>
+<button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<div class="relative group aspect-video bg-black cursor-pointer">
+<img alt="Juicy burger with cheese" class="w-full h-full object-cover opacity-90 group-hover:opacity-75 transition-opacity" data-alt="Double cheeseburger with melting cheese and fries" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBWyDYQDTJTuVt6To-vqn55gRosv5TYlPFRSSbxH2O34VW4JMB0EIF_WT7_z1VuD4kYVyklhRyxgu689qnRxZspFF-v45caIrBxtRdSb8XRQh3sJ6ZpBUTH5oLnRKrABZYm9SEeJRItNZHmZ4dw1IGtthKP-dmgSZ_US41m9URoS8b-ghdPUvOomYSVUIe-E5ofYVZ_CH72Qmmowsm9v79oWp5SX3dlSUI3KK1eCK45CZfkfMZNg910c-XjesXeEjmm9VO4SG67q0o"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="size-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 border border-white/30 shadow-xl">
+<span class="material-symbols-outlined text-white text-4xl ml-1">play_arrow</span>
+</div>
+</div>
+<div class="absolute bottom-3 right-3 bg-black/60 px-2 py-1 rounded text-xs font-bold text-white backdrop-blur-sm">0:10</div>
+</div>
+<div class="p-5">
+<div class="flex items-start justify-between gap-4 mb-3">
+<div>
+<h2 class="font-heading text-xl font-bold text-gray-900 dark:text-white mb-1">Best Burger in Town? 🍔🤔</h2>
+<p class="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">The patty was juicy, but the bun was a bit soggy. Honestly, 7/10. Good for a late night snack though.</p>
+</div>
+<div class="flex flex-col items-center bg-gray-50 dark:bg-gray-800/50 rounded-lg p-1 border border-gray-100 dark:border-gray-700 shrink-0 min-w-[60px]">
+<button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-gray-400 hover:text-primary transition-colors w-full flex justify-center group/up">
+<span class="material-symbols-outlined group-hover/up:fill-1 text-[24px]">keyboard_arrow_up</span>
+</button>
+<span class="text-sm font-bold text-gray-600 dark:text-gray-400 my-1">89</span>
+<button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-gray-400 hover:text-red-800 transition-colors w-full flex justify-center">
+<span class="material-symbols-outlined text-[24px]">keyboard_arrow_down</span>
+</button>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-3 pt-3 border-t border-gray-100 dark:border-gray-800 mt-2">
+<a class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-orange-50 text-orange-700 hover:bg-orange-100 border border-orange-100 transition-colors text-xs font-bold dark:bg-orange-900/20 dark:text-orange-300 dark:border-orange-900/30" href="#">
+<span class="material-symbols-outlined text-[16px]">restaurant</span>
+                                    Burger Joint No. 5
+                                </a>
+<div class="flex items-center gap-1 text-xs text-gray-500 font-medium">
+<span class="material-symbols-outlined text-[16px] text-yellow-500 fill-1">star</span>
+                                    3.5/5 Rating
+                                </div>
+<div class="flex-1"></div>
+<button class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 flex items-center gap-1 text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[20px]">chat_bubble</span>
+                                    8 Comments
+                                </button>
+<button class="text-gray-500 hover:text-gray-900 dark:hover:text-gray-200 flex items-center gap-1 text-sm font-medium transition-colors">
+<span class="material-symbols-outlined text-[20px]">share</span>
+                                    Share
+                                </button>
+</div>
+</div>
+</article>
+</div>
+<div class="py-8 flex justify-center">
+<button class="flex items-center gap-2 text-primary font-bold hover:underline">
+<span>Load more reviews</span>
+<span class="material-symbols-outlined text-[20px]">expand_more</span>
+</button>
+</div>
+</div>
+<!-- Right Column: Sidebar (4 cols) -->
+<aside class="hidden lg:flex lg:col-span-4 flex-col gap-6">
+<!-- Leaderboard Card -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm p-6 sticky top-24">
+<div class="flex items-center justify-between mb-6">
+<h2 class="font-heading text-xl font-bold text-gray-900 dark:text-white">Top Foodies</h2>
+<div class="relative group">
+<button class="flex items-center gap-1 text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded hover:bg-primary/20 transition-colors">
+<span>New York</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<!-- Rank 1 -->
+<div class="flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-yellow-50 to-white border border-yellow-100 dark:from-yellow-900/10 dark:to-transparent dark:border-yellow-900/30">
+<div class="font-heading font-black text-2xl text-yellow-500 w-6 text-center">1</div>
+<div class="relative">
+<img alt="Sarah Eats Avatar" class="size-10 rounded-full object-cover ring-2 ring-yellow-400" data-alt="Avatar of user Sarah" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBPDOHDYaKlzkA7VVRN2RskB0CkzM4cWbLvH_WECCWSn6OQmNThFarHIDlie3aCZ4pHWBNCIGtB_IdEaaBiEtEsFzw51BoYS9TvjmF9tHq1nyrAcqQWJt1ml7_ewTqweSsBRK6HEfnMbQCW17CdwSmXLY9v0u7Hn4gVwD5FM7X2P_P6eVLTOY_CW_BWVZdTOaOBG0aUz2kw_ymD1aWb_ZBmzu7eZZA228uudQ2I5JGRq28bszCLc8meqCXyDIQOL4s58qTy9A_XFaU"/>
+<span class="absolute -top-2 -right-2 text-lg">👑</span>
+</div>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-gray-900 dark:text-white truncate">Sarah Eats</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">12,450 helpful pts</p>
+</div>
+</div>
+<!-- Rank 2 -->
+<div class="flex items-center gap-3 p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors">
+<div class="font-heading font-bold text-lg text-gray-400 w-6 text-center">2</div>
+<img alt="MikeBites Avatar" class="size-10 rounded-full object-cover" data-alt="Avatar of user Mike" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzeHGrs07TBLeB4XzkQZdl97nGICyN8W_Grlns4tDT6-5UyOdSqnxDhpZYNuY65GgjsdYZVJucdK7X0XBDn1a8mGgrb-oDgyd5UEfl0IoP0Q5SwP5IKxdvP-g2Nd8aHr713PnXNql2AKU2QQl7RnESNi-FY2ojiNJrB51hE8GyO9FCn632bdem7NtcJYQyRrzYK4CnYfG0Zu58gRW22Ttx0LnXVj1-ISdiwsCfUx45pnaSqu9JnA0n5YcNODRA3UFKVqElmFi8I48"/>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-gray-900 dark:text-white truncate">MikeBites</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">9,300 helpful pts</p>
+</div>
+</div>
+<!-- Rank 3 -->
+<div class="flex items-center gap-3 p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors">
+<div class="font-heading font-bold text-lg text-gray-400 w-6 text-center">3</div>
+<img alt="JenTastes Avatar" class="size-10 rounded-full object-cover" data-alt="Avatar of user Jen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAytwJsDYGZfG0YDfPVz8MesUox1YTd63FnhSELwIXGgx6-CX6VldAMUQyGwurkHzVlIYOMaJkUWylLVFEnU0YUofcT_-vn5hIxjGYPnL6wmKU1LkefBDP9kSmvVoLVbl-aEHSjYE-FVM8am6U6fNcvXPTFFk9fu6SUIdMobM7K7yJcH_K_ZZgXbJLsEa4rNE6jl4ASqMJz4NzXazjHEWkb_U-N32CPytjOXcN_3Xxgeutf1EXVF-MDPx5ISqna4ObbbfqCG1HCH7I"/>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-gray-900 dark:text-white truncate">JenTastes</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">8,120 helpful pts</p>
+</div>
+</div>
+<!-- Rank 4 -->
+<div class="flex items-center gap-3 p-2 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-colors">
+<div class="font-heading font-bold text-lg text-gray-400 w-6 text-center">4</div>
+<img alt="DaveDevours Avatar" class="size-10 rounded-full object-cover" data-alt="Avatar of user Dave" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCquP2VSb9F1O-oL3UDpsMKeBmozbrvDamnrZ02qGTS7cnipo2YWY9lKGWyN6Hr7hJp8yXl94YudVf4Aara3VCVpzX3_sSz_4jcHMvOcnmoV53-P1oiA6DT8d8ubp9YVuQVKh6JJ7OR9G32qzy0qsnz1O57WwTAOzut05m5zfTE_rTzSfVy49lK5u4rBI8R0XMDOLAVhmsuh9dzb68WooA6RxMYut7ZxdPi_6vsvWCg5CjvykMYagXic_bEo9b1CT22B8JMl_Y0RaM"/>
+<div class="flex-1 min-w-0">
+<h4 class="text-sm font-bold text-gray-900 dark:text-white truncate">DaveDevours</h4>
+<p class="text-xs text-gray-500 dark:text-gray-400">6,540 helpful pts</p>
+</div>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-gray-100 dark:border-gray-800">
+<button class="w-full text-center text-sm font-semibold text-primary hover:text-primary-hover transition-colors">View Full Leaderboard</button>
+</div>
+</div>
+<!-- Invite CTA -->
+<div class="bg-primary rounded-xl p-6 text-center text-white shadow-lg relative overflow-hidden group cursor-pointer" data-alt="Abstract wave pattern background">
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4xKSIvPjwvc3ZnPg==')] opacity-30"></div>
+<div class="relative z-10">
+<div class="size-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm group-hover:scale-110 transition-transform duration-300">
+<span class="material-symbols-outlined text-[28px]">group_add</span>
+</div>
+<h3 class="font-heading text-lg font-bold mb-1">Invite Friends</h3>
+<p class="text-white/80 text-sm mb-4">Earn 50 points for every friend who posts their first review!</p>
+<button class="w-full py-2 bg-white text-primary font-bold rounded-lg hover:bg-gray-50 transition-colors text-sm">Get Invite Link</button>
+</div>
+</div>
+<!-- Mini Footer -->
+<div class="flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs text-gray-400">
+<a class="hover:text-gray-600 dark:hover:text-gray-300" href="#">About</a>
+<a class="hover:text-gray-600 dark:hover:text-gray-300" href="#">Guidelines</a>
+<a class="hover:text-gray-600 dark:hover:text-gray-300" href="#">Privacy</a>
+<a class="hover:text-gray-600 dark:hover:text-gray-300" href="#">Terms</a>
+<span>© 2023 FoodieHub</span>
+</div>
+</aside>
+</div>
+</main>
+<!-- Mobile Bottom Nav (Visible only on small screens) -->
+<div class="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-surface-dark border-t border-gray-200 dark:border-gray-800 lg:hidden pb-safe">
+<div class="flex justify-around items-center h-16">
+<a class="flex flex-col items-center justify-center w-full h-full text-primary" href="#">
+<span class="material-symbols-outlined fill-1">home</span>
+<span class="text-[10px] font-medium mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="text-[10px] font-medium mt-1">Explore</span>
+</a>
+<div class="flex flex-col items-center justify-center w-full h-full -mt-6">
+<button class="size-12 bg-primary rounded-full text-white shadow-lg flex items-center justify-center hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[28px]">add</span>
+</button>
+</div>
+<a class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="text-[10px] font-medium mt-1">Rank</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium mt-1">Profile</span>
+</a>
+</div>
+</div>
+</body></html>
